@@ -1,0 +1,30 @@
+{
+	"servers": {
+		"mcpServers": {
+			"type": "stdio",
+			"command": "/Users/ronan/go/bin/mcp-devtools"
+		},
+		"azure": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@azure/mcp@latest",
+				"server",
+				"start"
+			],
+			"gallery": true
+		},
+		"terraform": {
+			"type": "stdio",
+			"command": "docker",
+			"args": [
+			"run",
+				"-i",
+				"--rm",
+				"hashicorp/terraform-mcp-server:latest"
+			],
+			"gallery": true
+		},
+	}
+}

@@ -12,7 +12,7 @@ service cloud.firestore {
     function isAdmin() {
       let userId = request.auth.token.email.split('@')[0];
       let userDoc = get(/databases/$(database)/documents/users/$(userId));
-      return userDoc.data.isAdmin == true;
+      return userDoc != null && userDoc.data.isAdmin == true;
     }
     
     // Helper function to check if only wishlist is being updated

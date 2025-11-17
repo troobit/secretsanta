@@ -1,0 +1,28 @@
+/* Example: Rename to {username}.css for per-user styling */
+
+body {
+    background: linear-gradient(135deg, #165b33 0%, #052e16 100%) !important;
+}
+
+.bg-white {
+    background-color: #fef9f3 !important;
+}
+
+button.bg-blue-600 {
+    background-color: #dc2626 !important;
+}
+
+button.bg-blue-600:hover {
+    background-color: #b91c1c !important;
+}
+
+h1,
+h2,
+h3 {
+    color: #f59e0b !important;
+}
+
+/* Subtle sparkle effect on hover for buttons */
+button.bg-blue-600:hover {
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+}

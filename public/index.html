@@ -11,65 +11,67 @@
   <!-- TailwindCSS via Play CDN for development -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Firebase SDK - using compat version for emulator support -->
   <script src="/__/firebase/12.6.0/firebase-app-compat.js"></script>
   <script src="/__/firebase/12.6.0/firebase-auth-compat.js"></script>
   <script src="/__/firebase/12.6.0/firebase-firestore-compat.js"></script>
   <script src="/__/firebase/12.6.0/firebase-functions-compat.js"></script>
   <script src="/__/firebase/12.6.0/firebase-storage-compat.js"></script>
-
-  <!-- Firebase initialization - emulator detection via useEmulator parameter -->
   <script src="/__/firebase/init.js?useEmulator=true"></script>
-
-  <!-- Firebase initialization script - must run before Alpine.js -->
   <script>
-    // Initialize Firebase services immediately
-    (function initFirebase() {
-      // Wait for Firebase SDK to be available
+    (function () {
       const checkFirebase = setInterval(() => {
         if (typeof firebase !== 'undefined') {
           clearInterval(checkFirebase);
-          console.log('Firebase SDK loaded successfully');
-
-          // Initialize Firebase services
           const auth = firebase.auth();
           const firestore = firebase.firestore();
           const functions = firebase.functions();
           const storage = firebase.storage();
 
-          // Detect if running on localhost for emulator connection
           if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-            console.log('Connecting to Firebase emulators...');
             auth.useEmulator('http://localhost:9099');
             firestore.useEmulator('localhost', 8080);
             functions.useEmulator('localhost', 5001);
             storage.useEmulator('localhost', 9199);
-            console.log('Connected to emulators');
           }
 
-          // Make Firebase services globally available for Alpine components
           window.firebaseAuth = auth;
           window.firebaseFirestore = firestore;
           window.firebaseFunctions = functions;
           window.firebaseStorage = storage;
-          window.firebaseInitialized = true;
-
-          console.log('Firebase services initialized and ready');
         }
       }, 50);
     })();
   </script>
 
-  <!-- Alpine.js - loaded after Firebase initialization -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <script>
+    window.addEventListener('alpine:init', () => {
+      Alpine.effect(() => {
+        const app = Alpine.$data(document.getElementById('app'));
+        if (app?.user?.email) {
+          const username = app.user.email.split('@')[0];
+          const existing = document.getElementById('user-custom-css');
+          if (existing) {
+            existing.href = `css/${username}.css`;
+          } else {
+            const link = document.createElement('link');
+            link.id = 'user-custom-css';
+            link.rel = 'stylesheet';
+            link.href = `css/${username}.css`;
+            link.onerror = () => { };
+            document.head.appendChild(link);
+          }
+        }
+      });
+    });
+  </script>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
 
   <!-- App container -->
   <div id="app" x-data="secretSantaApp()" x-cloak>
-
-    <!-- Login Section (hidden when authenticated) -->
     <div x-show="!user" class="min-h-screen flex items-center justify-center px-4">
       <div class="w-full max-w-md">
         <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Secret Santa</h1>
@@ -77,9 +79,7 @@
         <!-- Login form -->
         <div class="bg-white rounded-lg shadow-md p-6">
           <h2 class="text-xl font-semibold mb-6 text-gray-800">Log In</h2>
-
           <form @submit.prevent="login()" class="space-y-4">
-            <!-- Name input -->
             <div>
               <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
                 Name
@@ -88,8 +88,6 @@
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter your name" :disabled="loginForm.loading">
             </div>
-
-            <!-- Password input -->
             <div>
               <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
                 Password
@@ -98,13 +96,9 @@
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter your password" :disabled="loginForm.loading">
             </div>
-
-            <!-- Error message -->
             <div x-show="loginForm.error" class="p-3 bg-red-50 border border-red-200 rounded-lg">
               <p class="text-sm text-red-600" x-text="loginForm.error"></p>
             </div>
-
-            <!-- Login button -->
             <button type="submit" :disabled="loginForm.loading"
               class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition disabled:bg-gray-400 disabled:cursor-not-allowed">
               <span x-show="!loginForm.loading">Log In</span>
@@ -115,9 +109,7 @@
       </div>
     </div>
 
-    <!-- Dashboard Section (visible when authenticated, non-admin) -->
-    <div x-show="user && !isAdmin" class="container mx-auto px-4 py-6 max-w-2xl">
-      <!-- Navigation/Header -->
+    <div x-show="user && !isAdmin" x-data="userDashboard()" class="container mx-auto px-4 py-6 max-w-2xl">
       <header class="mb-6 flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-800">Secret Santa</h1>
         <button @click="logout()" class="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg transition">
@@ -125,15 +117,68 @@
         </button>
       </header>
 
-      <!-- User dashboard content will be added in Phase 6 -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <p class="text-center text-gray-600">Dashboard coming soon...</p>
+      <!-- Loading state -->
+      <div x-show="loading" class="bg-white rounded-lg shadow-md p-6">
+        <p class="text-center text-gray-600">Loading...</p>
+      </div>
+
+      <!-- Error state -->
+      <div x-show="error && !loading" class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+        <p class="text-red-600" x-text="error"></p>
+      </div>
+      <div x-show="!loading && userData" class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Profile</h2>
+        <div class="flex items-start gap-4 mb-6">
+          <img x-show="userData?.profilePicUrl" :src="userData?.profilePicUrl" :alt="userData?.name"
+            class="w-20 h-20 rounded-full object-cover">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-gray-800" x-text="userData?.name"></h3>
+          </div>
+        </div>
+        <div>
+          <label for="wishlist" class="block text-sm font-medium text-gray-700 mb-2">
+            Your Wishlist
+          </label>
+          <textarea id="wishlist" x-model="wishlistInput" rows="4"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Enter your wishlist items..."></textarea>
+          <div class="mt-3 flex items-center gap-3">
+            <button @click="saveWishlist()" :disabled="savingWishlist"
+              class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition disabled:bg-gray-400 disabled:cursor-not-allowed">
+              <span x-show="!savingWishlist">Save Wishlist</span>
+              <span x-show="savingWishlist">Saving...</span>
+            </button>
+            <span x-show="wishlistSaved" x-transition class="text-sm text-green-600">
+              Saved successfully!
+            </span>
+          </div>
+        </div>
+      </div>
+      <div x-show="!loading && userData" class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Giftee</h2>
+        <div x-show="!userData?.gifteeId" class="text-center py-8">
+          <p class="text-gray-600">Pairing not yet complete</p>
+          <p class="text-sm text-gray-500 mt-2">Check back after the admin has triggered the randomisation</p>
+        </div>
+        <div x-show="userData?.gifteeId && gifteeData">
+          <div class="flex items-start gap-4 mb-6">
+            <img x-show="gifteeData?.profilePicUrl" :src="gifteeData?.profilePicUrl" :alt="gifteeData?.name"
+              class="w-20 h-20 rounded-full object-cover">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-gray-800" x-text="gifteeData?.name"></h3>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-sm font-medium text-gray-700 mb-2">Wishlist</h4>
+            <div class="bg-gray-50 rounded-lg p-4">
+              <p class="text-gray-800 whitespace-pre-wrap" x-text="gifteeData?.wishlist || 'No wishlist yet'"></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Admin Section (visible when authenticated, admin user) -->
-    <div x-show="user && isAdmin" class="container mx-auto px-4 py-6 max-w-4xl">
-      <!-- Navigation/Header -->
+    <div x-show="user && isAdmin" x-data="adminDashboard()" class="container mx-auto px-4 py-6 max-w-4xl">
       <header class="mb-6 flex justify-between items-center">
         <h1 class="text-2xl font-bold text-gray-800">Secret Santa - Admin</h1>
         <button @click="logout()" class="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg transition">
@@ -141,128 +186,98 @@
         </button>
       </header>
 
-      <!-- Admin content will be added in Phase 7 -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <p class="text-center text-gray-600">Admin panel coming soon...</p>
+      <!-- Loading state -->
+      <div x-show="loading" class="bg-white rounded-lg shadow-md p-6">
+        <p class="text-center text-gray-600">Loading...</p>
+      </div>
+
+      <!-- Error state -->
+      <div x-show="error && !loading" class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+        <p class="text-red-600" x-text="error"></p>
+      </div>
+      <div x-show="!loading" class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Pairing Status</h2>
+
+        <div class="mb-4">
+          <div x-show="!isLocked" class="flex items-center gap-2 text-yellow-600">
+            <span class="font-medium">Pairing not yet triggered</span>
+          </div>
+          <div x-show="isLocked" class="flex items-center gap-2 text-green-600">
+            <span class="font-medium">Pairing complete</span>
+            <span class="text-sm text-gray-600" x-text="lockTimeFormatted"></span>
+          </div>
+        </div>
+        <div x-show="!isLocked">
+          <button @click="showConfirmation = true" :disabled="isProcessing || allUsers.length < 3"
+            class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition disabled:bg-gray-400 disabled:cursor-not-allowed">
+            <span x-show="!isProcessing">Trigger Pairing</span>
+            <span x-show="isProcessing">Processing...</span>
+          </button>
+          <p class="text-sm text-gray-500 mt-2" x-show="allUsers.length < 3">
+            At least 3 non-admin users required to trigger pairing
+          </p>
+        </div>
+        <div x-show="pairingResult" class="mt-4 p-4 rounded-lg"
+          :class="pairingResult?.success ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'">
+          <p :class="pairingResult?.success ? 'text-green-800' : 'text-red-800'" x-text="pairingResult?.message"></p>
+        </div>
+      </div>
+      <div x-show="!loading" class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Users</h2>
+
+        <div class="space-y-4">
+          <template x-for="user in allUsers" :key="user.id">
+            <div class="border border-gray-200 rounded-lg p-4">
+              <div class="flex items-start gap-4">
+                <img x-show="user.profilePicUrl" :src="user.profilePicUrl" :alt="user.name"
+                  class="w-16 h-16 rounded-full object-cover">
+                <div class="flex-1">
+                  <h3 class="font-semibold text-gray-800" x-text="user.name"></h3>
+                  <p class="text-sm text-gray-600">
+                    Wishlist: <span x-text="user.wishlist ? 'Provided' : 'Not yet'"></span>
+                  </p>
+                  <p class="text-sm font-medium mt-1" :class="user.gifteeId ? 'text-green-600' : 'text-gray-500'">
+                    Pairing: <span x-text="user.gifteeId ? 'Assigned' : 'Pending'"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div x-show="showConfirmation" x-cloak
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full">
+          <h3 class="text-lg font-semibold mb-4 text-gray-800">Confirm Pairing</h3>
+          <p class="text-gray-600 mb-6">
+            Are you sure you want to trigger the Secret Santa pairing? This action cannot be undone.
+          </p>
+          <div class="flex gap-3">
+            <button @click="triggerPairing()" :disabled="isProcessing"
+              class="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition disabled:bg-gray-400">
+              <span x-show="!isProcessing">Yes, Trigger Pairing</span>
+              <span x-show="isProcessing">Processing...</span>
+            </button>
+            <button @click="showConfirmation = false" :disabled="isProcessing"
+              class="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition">
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
   </div>
 
-  <!-- Alpine.js app initialization script -->
-  <script>
-    // Alpine.js main app component
-    function secretSantaApp() {
-      return {
-        user: null,
-        isAdmin: false,
-        loading: true,
-        loginForm: {
-          name: '',
-          password: '',
-          loading: false,
-          error: ''
-        },
+  <script src="js/auth-component.js"></script>
+  <script src="js/user-dashboard-component.js"></script>
+  <script src="js/admin-dashboard-component.js"></script>
 
-        init() {
-          // Wait for Firebase to be initialized before setting up auth listener
-          const waitForFirebase = setInterval(() => {
-            if (window.firebaseAuth && window.firebaseFirestore) {
-              clearInterval(waitForFirebase);
-
-              // Set up auth state listener
-              window.firebaseAuth.onAuthStateChanged(async (user) => {
-                this.user = user;
-                this.loading = false;
-
-                // Check if user is admin by fetching their Firestore document
-                if (user) {
-                  try {
-                    const userId = user.email.split('@')[0];
-                    const userDoc = await window.firebaseFirestore.collection('users').doc(userId).get();
-
-                    if (userDoc.exists) {
-                      this.isAdmin = userDoc.data().isAdmin === true;
-                    } else {
-                      this.isAdmin = false;
-                      console.warn('User document not found in Firestore');
-                    }
-                  } catch (error) {
-                    console.error('Error fetching user admin status:', error);
-                    this.isAdmin = false;
-                  }
-                } else {
-                  this.isAdmin = false;
-                }
-              });
-            }
-          }, 50);
-        },
-
-        login() {
-          // Clear previous error
-          this.loginForm.error = '';
-          this.loginForm.loading = true;
-
-          // Append @secretsanta.app to username
-          const email = this.loginForm.name.trim() + '@secretsanta.app';
-          const password = this.loginForm.password;
-
-          if (window.firebaseAuth) {
-            window.firebaseAuth.signInWithEmailAndPassword(email, password)
-              .then((userCredential) => {
-                console.log('Logged in successfully:', userCredential.user.email);
-                // Reset form
-                this.loginForm.name = '';
-                this.loginForm.password = '';
-                this.loginForm.loading = false;
-              })
-              .catch((error) => {
-                console.error('Login error:', error);
-
-                // User-friendly error messages
-                let errorMessage = 'Login failed. Please check your credentials.';
-                if (error.code === 'auth/user-not-found') {
-                  errorMessage = 'No account found with this name.';
-                } else if (error.code === 'auth/wrong-password') {
-                  errorMessage = 'Incorrect password.';
-                } else if (error.code === 'auth/invalid-email') {
-                  errorMessage = 'Invalid name format.';
-                } else if (error.code === 'auth/too-many-requests') {
-                  errorMessage = 'Too many failed attempts. Please try again later.';
-                }
-
-                this.loginForm.error = errorMessage;
-                this.loginForm.loading = false;
-              });
-          } else {
-            this.loginForm.error = 'Firebase not initialized. Please refresh the page.';
-            this.loginForm.loading = false;
-          }
-        },
-
-        logout() {
-          if (window.firebaseAuth) {
-            window.firebaseAuth.signOut()
-              .then(() => {
-                console.log('Logged out successfully');
-              })
-              .catch((error) => {
-                console.error('Logout error:', error);
-              });
-          }
-        }
-      };
-    }
-  </script>
-
-  <!-- Alpine.js cloak style to prevent flash of unstyled content -->
   <style>
     [x-cloak] {
       display: none !important;
     }
   </style>
-
 </body>
 
 </html>

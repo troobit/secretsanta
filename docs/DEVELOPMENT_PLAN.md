@@ -19,67 +19,83 @@ Create a simple, mobile-first Secret Santa web app with a minimal, free-tier-fri
 ## Plan
 
 ### Phase 1: Project Setup & Configuration
-- [ ] 1.1 Configure Firebase project settings
-  - [ ] 1.1.a Update `firebase.json` to include Functions and Emulators configuration
-  - [ ] 1.1.b Configure emulator settings for Auth, Firestore, Functions, and Hosting
-  - [ ] 1.1.c Add Storage configuration to `firebase.json`
-- [ ] 1.2 Set up Firestore security rules
-  - [ ] 1.2.a Define security rules for `users` collection (authenticated users can read all, write only own document)
-  - [ ] 1.2.b Define security rules for `settings` collection (authenticated users can read, admin can write)
-  - [ ] 1.2.c Add rule to prevent updates to user fields after `lockInTime` (except wishlist)
-  - [ ] 1.2.d Update `firestore.rules` with production-ready rules
-- [ ] 1.3 Configure Firebase Storage rules
-  - [ ] 1.3.a Create `storage.rules` file
-  - [ ] 1.3.b Define rules allowing admin uploads and public reads for profile pictures
-- [ ] 1.4 Set up Cloud Functions for Python
-  - [ ] 1.4.a Update `functions/requirements.txt` with required dependencies (firebase-admin, firebase-functions)
-  - [ ] 1.4.b Configure Functions environment for emulator support
+- [x] 1.1 Configure Firebase project settings
+  - [x] 1.1.a Update `firebase.json` to include Functions and Emulators configuration
+  - [x] 1.1.b Configure emulator settings for Auth, Firestore, Functions, and Hosting
+  - [x] 1.1.c Add Storage configuration to `firebase.json`
+- [x] 1.2 Set up Firestore security rules
+  - [x] 1.2.a Define security rules for `users` collection (authenticated users can read all, write only own document)
+  - [x] 1.2.b Define security rules for `settings` collection (authenticated users can read, admin can write)
+  - [x] 1.2.c Add rule to prevent updates to user fields after `lockInTime` (except wishlist)
+  - [x] 1.2.d Update `firestore.rules` with production-ready rules
+- [x] 1.3 Configure Firebase Storage rules
+  - [x] 1.3.a Create `storage.rules` file
+  - [x] 1.3.b Define rules allowing admin uploads and public reads for profile pictures
+- [x] 1.4 Set up Cloud Functions for Python
+  - [x] 1.4.a Update `functions/requirements.txt` with required dependencies (firebase-admin, firebase-functions)
+  - [x] 1.4.b Configure Functions environment for emulator support
 
 ### Phase 2: Database Schema & Initialisation
-- [ ] 2.1 Define Firestore data structure
-  - [ ] 2.1.a Document `users` collection schema (name: string, wishlist: string, votedAmount: number, profilePicUrl: string, gifteeId: string|null)
-  - [ ] 2.1.b Document `settings` collection schema (lockInTime: Timestamp|null)
-- [ ] 2.2 Create development setup guide in `docs/SETUP.md`
-  - [ ] 2.2.a Document Firebase Auth user creation steps (format: `name@secretsanta.app`)
-  - [ ] 2.2.b Document Firestore user document structure and sample data
-  - [ ] 2.2.c Document Storage profile picture upload process
-  - [ ] 2.2.d Document emulator initialization steps
+- [x] 2.1 Define Firestore data structure
+  - [x] 2.1.a Document `users` collection schema (name: string, wishlist: string, votedAmount: number, profilePicUrl: string, gifteeId: string|null)
+  - [x] 2.1.b Document `settings` collection schema (lockInTime: Timestamp|null)
+- [x] 2.2 Create development setup guide in `docs/SETUP.md`
+  - [x] 2.2.a Document Firebase Auth user creation steps (format: `name@secretsanta.app`)
+  - [x] 2.2.b Document Firestore user document structure and sample data
+  - [x] 2.2.c Document Storage profile picture upload process
+  - [x] 2.2.d Document emulator initialization steps
 
 ### Phase 3: Frontend Structure (HTML & TailwindCSS)
-- [ ] 3.1 Create base HTML structure in `public/index.html`
-  - [ ] 3.1.a Add meta tags (viewport, charset, description)
-  - [ ] 3.1.b Include TailwindCSS via CDN (using Play CDN for development)
-  - [ ] 3.1.c Include Alpine.js via CDN
-  - [ ] 3.1.d Include Firebase SDK scripts (Auth, Firestore, Functions, Storage)
-  - [ ] 3.1.e Add Firebase initialization script with emulator detection
-- [ ] 3.2 Create mobile-first layout sections
-  - [ ] 3.2.a Create login section (hidden when authenticated)
-  - [ ] 3.2.b Create dashboard section (visible when authenticated, non-admin)
-  - [ ] 3.2.c Create admin section (visible when authenticated, admin user)
-  - [ ] 3.2.d Add navigation/header with logout button
+- [x] 3.1 Create base HTML structure in `public/index.html`
+  - [x] 3.1.a Add meta tags (viewport, charset, description)
+  - [x] 3.1.b Include TailwindCSS via CDN (using Play CDN for development)
+  - [x] 3.1.c Include Alpine.js via CDN
+  - [x] 3.1.d Include Firebase SDK scripts (Auth, Firestore, Functions, Storage)
+  - [x] 3.1.e Add Firebase initialization script with emulator detection
+- [x] 3.2 Create mobile-first layout sections
+  - [x] 3.2.a Create login section (hidden when authenticated)
+  - [x] 3.2.b Create dashboard section (visible when authenticated, non-admin)
+  - [x] 3.2.c Create admin section (visible when authenticated, admin user)
+  - [x] 3.2.d Add navigation/header with logout button
 
 ### Phase 4: Firebase Initialization & Emulator Configuration
-- [ ] 4.1 Set up Firebase SDK configuration
-  - [ ] 4.1.a Add Firebase config object (to be populated from Firebase console)
-  - [ ] 4.1.b Initialize Firebase App
-  - [ ] 4.1.c Initialize Firebase services (Auth, Firestore, Functions, Storage)
-- [ ] 4.2 Configure emulator connection (optional for local development)
-  - [ ] 4.2.a Add environment variable or config flag (e.g., `USE_EMULATOR`)
-  - [ ] 4.2.b Connect to emulators when flag is set (Auth, Firestore, Functions, Storage)
+- [x] 4.1 Set up Firebase SDK configuration
+  - [x] 4.1.a Add Firebase config object (to be populated from Firebase console)
+  - [x] 4.1.b Initialize Firebase App
+  - [x] 4.1.c Initialize Firebase services (Auth, Firestore, Functions, Storage)
+- [x] 4.2 Configure emulator connection (optional for local development)
+  - [x] 4.2.a Add environment variable or config flag (e.g., `USE_EMULATOR`)
+  - [x] 4.2.b Connect to emulators when flag is set (Auth, Firestore, Functions, Storage)
 
 ### Phase 5: Authentication Implementation (Alpine.js)
-- [ ] 5.1 Create Alpine.js authentication component
-  - [ ] 5.1.a Initialize Alpine data with authentication state (user, loading, error)
-  - [ ] 5.1.b Create login method that appends `@secretsanta.app` to username
-  - [ ] 5.1.c Implement `signInWithEmailAndPassword` call
-  - [ ] 5.1.d Create logout method using `signOut`
-  - [ ] 5.1.e Add `onAuthStateChanged` listener to update state
-- [ ] 5.2 Build login form UI
-  - [ ] 5.2.a Create form with name input field (Irish English labels)
-  - [ ] 5.2.b Create password input field
-  - [ ] 5.2.c Add login button with loading state
-  - [ ] 5.2.d Add error message display area
-  - [ ] 5.2.e Style form with TailwindCSS (mobile-first)
+- [x] 5.1 Create Alpine.js authentication component
+  - [x] 5.1.a Initialize Alpine data with authentication state (user, loading, error)
+  - [x] 5.1.b Create login method that appends `@secretsanta.app` to username
+  - [x] 5.1.c Implement `signInWithEmailAndPassword` call
+  - [x] 5.1.d Create logout method using `signOut`
+  - [x] 5.1.e Add `onAuthStateChanged` listener to update state
+- [x] 5.2 Build login form UI
+  - [x] 5.2.a Create form with name input field (Irish English labels)
+  - [x] 5.2.b Create password input field
+  - [x] 5.2.c Add login button with loading state
+  - [x] 5.2.d Add error message display area
+  - [x] 5.2.e Style form with TailwindCSS (mobile-first)
+- [x] (FIX) 5.3 Fix Firebase initialization race condition
+  - [x] 5.3.a Move Firebase initialization logic before Alpine.js script loading
+  - [x] 5.3.b Ensure Firebase services globally available before Alpine components initialize
+  - [x] 5.3.c Add proper error handling if Firebase fails to load
+- [x] (FIX) 5.4 Correct TailwindCSS class typos
+  - [x] 5.4.a Fix "items-centre" to "items-center" (3 occurrences)
+  - [x] 5.4.b Fix "text-centre" to "text-center" (4 occurrences)
+  - [x] 5.4.c Fix "justify-centre" to "justify-center" (1 occurrence)
+
+### Phase 5.5: Security Fixes (Admin Check)
+- [x] (FIX) 5.5.a Add `isAdmin` boolean field to DATABASE_SCHEMA.md users collection
+- [ ] (FIX) 5.5.b Update firestore.rules to use Firestore-based admin check (helper function checking user.isAdmin field)
+- [ ] (FIX) 5.5.c Modify public/index.html to fetch user document from Firestore and check isAdmin field instead of hardcoded email
+- [ ] (FIX) 5.5.d Initialize Python virtual environment for Cloud Functions (`python3.12 -m venv venv` in functions/ directory)
+- [ ] (FIX) 5.5.e Update DATABASE_SCHEMA.md to clarify admin users only require `name` and `isAdmin` fields (exclude votedAmount, profilePicUrl, gifteeId, wishlist)
+- [ ] (FIX) 5.5.f Add note to Phase 8 pairing algorithm to filter out users where `isAdmin: true` to prevent admin accounts from being included in pairing
 
 ### Phase 6: User Dashboard Implementation
 - [ ] 6.1 Create Alpine.js dashboard component
@@ -251,3 +267,22 @@ Create a simple, mobile-first Secret Santa web app with a minimal, free-tier-fri
 
 - **PLANNER:** Initial plan created. Status: Complete. Comprehensive 12-phase development plan established covering setup, implementation, testing, and deployment.
 - **PLANNER:** Updated plan based on feedback. Status: Complete. Modified Phase 2.2 to target docs directory, simplified Phase 4.2 emulator configuration, added optional per-user CSS in Phase 9.1.e.
+- **WORKER:** Completed Task 1.1.a: Added Functions and Emulators configuration to firebase.json with Python 3.12 runtime and standard ports.
+- **WORKER:** Completed Task 1.1.b: Emulator settings already configured in 1.1.a (Auth, Firestore, Functions, Hosting, Storage with UI enabled).
+- **WORKER:** Completed Task 1.1.c: Added Storage configuration to firebase.json pointing to storage.rules file.
+- **WORKER:** Completed Tasks 1.2.a & 1.2.b: Created Firestore security rules for users (auth users read all, write own) and settings (auth users read, admin writes).
+- **WORKER:** Completed Tasks 1.2.c & 1.2.d: Added lockInTime validation preventing user field updates after pairing (except wishlist). Production-ready rules complete.
+- **WORKER:** Completed Tasks 1.3.a & 1.3.b: Created storage.rules with admin-only upload rights and public read access for profile-pictures directory.
+- **WORKER:** Completed Tasks 1.4.a & 1.4.b: Updated requirements.txt with firebase-admin and firebase-functions. Emulator support configured via firebase.json in 1.1.a.
+- **WORKER:** Completed Tasks 2.1.a & 2.1.b: Created DATABASE_SCHEMA.md documenting users and settings collections with fields, types, security rules, and sample data.
+- **WORKER:** Completed Tasks 2.2.a-d: Created SETUP.md with emulator setup, test user creation, Firestore documents, Storage uploads, and testing workflow.
+- **WORKER:** Completed Tasks 3.1.a-e: Created base HTML structure with meta tags, TailwindCSS, Alpine.js, Firebase SDK scripts, and emulator auto-detection logic.
+- **WORKER:** Completed Tasks 3.2.a-d: Layout sections created in 3.1 (login, dashboard, admin with headers and logout buttons).
+- **WORKER:** Completed Tasks 4.1.a-c & 4.2.a-b: Firebase SDK initialized with emulator auto-detection in 3.1.
+- **WORKER:** Completed Tasks 5.1.a-e & 5.2.a-e: Implemented authentication with login form, name input, password input, error handling, loading states, and mobile-first styling.
+- **REVIEWER:** Phases 3, 4, 5: Fail. Critical initialization race condition - Alpine.js init() runs before Firebase services available. Firebase initialization in DOMContentLoaded interval completes async, but Alpine component initializes synchronously causing window.firebaseAuth to be undefined when onAuthStateChanged is called. Login attempts fail with "Firebase not initialized" error. Additional issues: multiple typos in CSS classes ("items-centre" should be "items-center", "text-centre" should be "text-center", "justify-centre" should be "justify-center").
+- **WORKER:** Completed Tasks 5.3.a-c: Moved Firebase initialization to synchronous inline script before Alpine.js loads. Firebase services now globally available before Alpine init(). Added waitForFirebase check in Alpine init().
+- **WORKER:** Completed Tasks 5.4.a-c: Fixed all TailwindCSS class typos (items-center, text-center, justify-center).
+- **REVIEWER:** Phase 5 Authentication: Fail. Critical security issue - admin check hardcoded in HTML (line 188: `user.email === 'admin@secretsanta.app'`) exposes security logic to client manipulation. Firestore rules also hardcode admin email (line 30). Database schema missing `isAdmin` field. Functions Python environment not initialized (missing venv). Required fixes: (1) Add `isAdmin` boolean field to user documents, (2) Update Firestore rules to check user.isAdmin instead of hardcoded email, (3) Modify HTML to fetch user document and check isAdmin field from Firestore, (4) Initialize Python virtual environment for Functions.
+- **REVIEWER:** Phase 5.5 Admin Implementation: Additional Issue. Admin users should be excluded from Secret Santa pairing logic. Admin user documents should have minimal schema (only `name` and `isAdmin` fields required). The Python pairing function (Phase 8) must filter out users where `isAdmin: true` to prevent admin accounts from being paired. Schema documentation needs clarification on admin vs regular user document structures.
+- **WORKER:** Completed Task 5.5.a: Updated DATABASE_SCHEMA.md to clarify admin users require only name and isAdmin fields, marked other fields as conditional for regular users.

@@ -22,6 +22,6 @@ Compare: Compare the code against the task's requirements. Check for adherence t
 
 Log Review: You MUST update docs/DEVELOPMENT_PLAN.md: a. Append your review to the ## 4. Agent Log: (e.g., - **REVIEWER:** Task 2.1: Pass. or - **REVIEWER:** Task 2.1: Fail: errors in view or loading state.).
 
-If Issues Exist: Add new checklist items to the appropriate phase in the plan, prefixed with (FIX) (e.g., - [ ] (FIX) (Phase 2) Address null pointer risk in 'service.dart').
+If Issues Exist: Add new checklist items to the appropriate phase in the plan, prefixed with (FIX) (e.g., - [ ] (FIX) (Phase 2) Address null pointer risk in 'service.js').
 
 Stop: Await the user's handoff to Work (for fixes), Plan (for larger revisions), or input on further review areas.

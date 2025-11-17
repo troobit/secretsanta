@@ -1,89 +1,268 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en-IE">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.6.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.6.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.6.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Secret Santa gift exchange organiser - manage your Secret Santa participation, view your assigned giftee, and update your wishlist.">
+  <title>Secret Santa</title>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+  <!-- TailwindCSS via Play CDN for development -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+  <!-- Firebase SDK - using compat version for emulator support -->
+  <script src="/__/firebase/12.6.0/firebase-app-compat.js"></script>
+  <script src="/__/firebase/12.6.0/firebase-auth-compat.js"></script>
+  <script src="/__/firebase/12.6.0/firebase-firestore-compat.js"></script>
+  <script src="/__/firebase/12.6.0/firebase-functions-compat.js"></script>
+  <script src="/__/firebase/12.6.0/firebase-storage-compat.js"></script>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+  <!-- Firebase initialization - emulator detection via useEmulator parameter -->
+  <script src="/__/firebase/init.js?useEmulator=true"></script>
+
+  <!-- Firebase initialization script - must run before Alpine.js -->
+  <script>
+    // Initialize Firebase services immediately
+    (function initFirebase() {
+      // Wait for Firebase SDK to be available
+      const checkFirebase = setInterval(() => {
+        if (typeof firebase !== 'undefined') {
+          clearInterval(checkFirebase);
+          console.log('Firebase SDK loaded successfully');
+
+          // Initialize Firebase services
+          const auth = firebase.auth();
+          const firestore = firebase.firestore();
+          const functions = firebase.functions();
+          const storage = firebase.storage();
+
+          // Detect if running on localhost for emulator connection
+          if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            console.log('Connecting to Firebase emulators...');
+            auth.useEmulator('http://localhost:9099');
+            firestore.useEmulator('localhost', 8080);
+            functions.useEmulator('localhost', 5001);
+            storage.useEmulator('localhost', 9199);
+            console.log('Connected to emulators');
+          }
+
+          // Make Firebase services globally available for Alpine components
+          window.firebaseAuth = auth;
+          window.firebaseFirestore = firestore;
+          window.firebaseFunctions = functions;
+          window.firebaseStorage = storage;
+          window.firebaseInitialized = true;
+
+          console.log('Firebase services initialized and ready');
         }
-      });
-    </script>
-  </body>
+      }, 50);
+    })();
+  </script>
+
+  <!-- Alpine.js - loaded after Firebase initialization -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- App container -->
+  <div id="app" x-data="secretSantaApp()" x-cloak>
+
+    <!-- Login Section (hidden when authenticated) -->
+    <div x-show="!user" class="min-h-screen flex items-center justify-center px-4">
+      <div class="w-full max-w-md">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Secret Santa</h1>
+
+        <!-- Login form -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-semibold mb-6 text-gray-800">Log In</h2>
+
+          <form @submit.prevent="login()" class="space-y-4">
+            <!-- Name input -->
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+                Name
+              </label>
+              <input type="text" id="name" x-model="loginForm.name" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter your name" :disabled="loginForm.loading">
+            </div>
+
+            <!-- Password input -->
+            <div>
+              <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+                Password
+              </label>
+              <input type="password" id="password" x-model="loginForm.password" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter your password" :disabled="loginForm.loading">
+            </div>
+
+            <!-- Error message -->
+            <div x-show="loginForm.error" class="p-3 bg-red-50 border border-red-200 rounded-lg">
+              <p class="text-sm text-red-600" x-text="loginForm.error"></p>
+            </div>
+
+            <!-- Login button -->
+            <button type="submit" :disabled="loginForm.loading"
+              class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition disabled:bg-gray-400 disabled:cursor-not-allowed">
+              <span x-show="!loginForm.loading">Log In</span>
+              <span x-show="loginForm.loading">Logging in...</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Section (visible when authenticated, non-admin) -->
+    <div x-show="user && !isAdmin" class="container mx-auto px-4 py-6 max-w-2xl">
+      <!-- Navigation/Header -->
+      <header class="mb-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-800">Secret Santa</h1>
+        <button @click="logout()" class="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg transition">
+          Log Out
+        </button>
+      </header>
+
+      <!-- User dashboard content will be added in Phase 6 -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <p class="text-center text-gray-600">Dashboard coming soon...</p>
+      </div>
+    </div>
+
+    <!-- Admin Section (visible when authenticated, admin user) -->
+    <div x-show="user && isAdmin" class="container mx-auto px-4 py-6 max-w-4xl">
+      <!-- Navigation/Header -->
+      <header class="mb-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-800">Secret Santa - Admin</h1>
+        <button @click="logout()" class="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg transition">
+          Log Out
+        </button>
+      </header>
+
+      <!-- Admin content will be added in Phase 7 -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <p class="text-center text-gray-600">Admin panel coming soon...</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Alpine.js app initialization script -->
+  <script>
+    // Alpine.js main app component
+    function secretSantaApp() {
+      return {
+        user: null,
+        isAdmin: false,
+        loading: true,
+        loginForm: {
+          name: '',
+          password: '',
+          loading: false,
+          error: ''
+        },
+
+        init() {
+          // Wait for Firebase to be initialized before setting up auth listener
+          const waitForFirebase = setInterval(() => {
+            if (window.firebaseAuth && window.firebaseFirestore) {
+              clearInterval(waitForFirebase);
+
+              // Set up auth state listener
+              window.firebaseAuth.onAuthStateChanged(async (user) => {
+                this.user = user;
+                this.loading = false;
+
+                // Check if user is admin by fetching their Firestore document
+                if (user) {
+                  try {
+                    const userId = user.email.split('@')[0];
+                    const userDoc = await window.firebaseFirestore.collection('users').doc(userId).get();
+
+                    if (userDoc.exists) {
+                      this.isAdmin = userDoc.data().isAdmin === true;
+                    } else {
+                      this.isAdmin = false;
+                      console.warn('User document not found in Firestore');
+                    }
+                  } catch (error) {
+                    console.error('Error fetching user admin status:', error);
+                    this.isAdmin = false;
+                  }
+                } else {
+                  this.isAdmin = false;
+                }
+              });
+            }
+          }, 50);
+        },
+
+        login() {
+          // Clear previous error
+          this.loginForm.error = '';
+          this.loginForm.loading = true;
+
+          // Append @secretsanta.app to username
+          const email = this.loginForm.name.trim() + '@secretsanta.app';
+          const password = this.loginForm.password;
+
+          if (window.firebaseAuth) {
+            window.firebaseAuth.signInWithEmailAndPassword(email, password)
+              .then((userCredential) => {
+                console.log('Logged in successfully:', userCredential.user.email);
+                // Reset form
+                this.loginForm.name = '';
+                this.loginForm.password = '';
+                this.loginForm.loading = false;
+              })
+              .catch((error) => {
+                console.error('Login error:', error);
+
+                // User-friendly error messages
+                let errorMessage = 'Login failed. Please check your credentials.';
+                if (error.code === 'auth/user-not-found') {
+                  errorMessage = 'No account found with this name.';
+                } else if (error.code === 'auth/wrong-password') {
+                  errorMessage = 'Incorrect password.';
+                } else if (error.code === 'auth/invalid-email') {
+                  errorMessage = 'Invalid name format.';
+                } else if (error.code === 'auth/too-many-requests') {
+                  errorMessage = 'Too many failed attempts. Please try again later.';
+                }
+
+                this.loginForm.error = errorMessage;
+                this.loginForm.loading = false;
+              });
+          } else {
+            this.loginForm.error = 'Firebase not initialized. Please refresh the page.';
+            this.loginForm.loading = false;
+          }
+        },
+
+        logout() {
+          if (window.firebaseAuth) {
+            window.firebaseAuth.signOut()
+              .then(() => {
+                console.log('Logged out successfully');
+              })
+              .catch((error) => {
+                console.error('Logout error:', error);
+              });
+          }
+        }
+      };
+    }
+  </script>
+
+  <!-- Alpine.js cloak style to prevent flash of unstyled content -->
+  <style>
+    [x-cloak] {
+      display: none !important;
+    }
+  </style>
+
+</body>
+
 </html>

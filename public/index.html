@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-    content="Gift exchange organiser - manage your participation, view your assigned giftee, and update your wishlist.">
-  <title>Secret Santa</title>
+    content="Secret Santa gift exchange - manage your Secret Santa participation, view your assigned giftee, and update your wishlist.">
+  <title>Barlyn Rd - Secret Santa</title>
 
   <!-- TailwindCSS via Play CDN for development -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,6 +23,27 @@
   <script src="js/firebase-init.js"></script>
 
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <script>
+    window.addEventListener('alpine:init', () => {
+      Alpine.effect(() => {
+        const app = Alpine.$data(document.getElementById('app'));
+        if (app?.user?.email) {
+          const username = app.user.email.split('@')[0];
+          const existing = document.getElementById('user-custom-css');
+          if (existing) {
+            existing.href = `css/${username}.css`;
+          } else {
+            const link = document.createElement('link');
+            link.id = 'user-custom-css';
+            link.rel = 'stylesheet';
+            link.href = `css/${username}.css`;
+            document.head.appendChild(link);
+          }
+        }
+      });
+    });
+  </script>
 </head>
 
 <body id="page-body" class="min-h-screen">
@@ -31,7 +52,7 @@
   <div id="app" x-data="secretSantaApp()" x-cloak>
     <div x-show="!user" class="min-h-screen flex items-center justify-center px-4">
       <div class="w-full max-w-md">
-        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Secret Santa</h1>
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Barlyn Road's Secret Santa</h1>
 
         <!-- Login form -->
         <div class="bg-white rounded-lg shadow-md p-6">
@@ -68,7 +89,7 @@
 
     <div x-show="user && !isAdmin" x-data="userDashboard()" class="container mx-auto px-4 py-6 max-w-2xl">
       <header class="mb-6 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-800">Secret Santa</h1>
+        <h1 class="text-2xl font-bold text-gray-800"><span x-text="userData?.name"></span>'s Secret Santa</h1>
         <button @click="logout()" class="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg transition">
           Log Out
         </button>

@@ -24,7 +24,7 @@ def triggerSecretSantaPairing(req: https_fn.CallableRequest) -> dict:
 
     try:
         # Verify user is admin by checking Firestore document
-        # Extract user ID from email (format: username@a.a -> username)
+        # Extract user ID from email (format: username@rtob.dev -> username)
         user_email = req.auth.token.get('email', '')
         if not user_email or '@' not in user_email:
             raise https_fn.HttpsError(

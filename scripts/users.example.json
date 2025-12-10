@@ -1,7 +1,7 @@
 [
   {
     "uid": "john",
-    "email": "john@a.a",
+    "email": "john@rtob.dev",
     "password": "password123",
     "displayName": "John",
     "userData": {
@@ -14,7 +14,7 @@
   },
   {
     "uid": "mary",
-    "email": "mary@a.a",
+    "email": "mary@rtob.dev",
     "password": "password123",
     "displayName": "Mary",
     "userData": {
@@ -27,7 +27,7 @@
   },
   {
     "uid": "paul",
-    "email": "paul@a.a",
+    "email": "paul@rtob.dev",
     "password": "password123",
     "displayName": "Paul",
     "userData": {
@@ -40,7 +40,7 @@
   },
   {
     "uid": "admin",
-    "email": "admin@a.a",
+    "email": "admin@rtob.dev",
     "password": "admin123",
     "displayName": "admin",
     "userData": {

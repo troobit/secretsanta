@@ -1,0 +1,51 @@
+[
+  {
+    "uid": "john",
+    "email": "john@a.a",
+    "password": "password123",
+    "displayName": "John",
+    "userData": {
+      "name": "John",
+      "wishlist": "Books, coffee, socks",
+      "profilePicUrl": "",
+      "gifteeId": null,
+      "isAdmin": false
+    }
+  },
+  {
+    "uid": "mary",
+    "email": "mary@a.a",
+    "password": "password123",
+    "displayName": "Mary",
+    "userData": {
+      "name": "Mary",
+      "wishlist": "Tea, candles, blankets",
+      "profilePicUrl": "",
+      "gifteeId": null,
+      "isAdmin": false
+    }
+  },
+  {
+    "uid": "paul",
+    "email": "paul@a.a",
+    "password": "password123",
+    "displayName": "Paul",
+    "userData": {
+      "name": "Paul",
+      "wishlist": "Whiskey, books, board games",
+      "profilePicUrl": "",
+      "gifteeId": null,
+      "isAdmin": false
+    }
+  },
+  {
+    "uid": "admin",
+    "email": "admin@a.a",
+    "password": "admin123",
+    "displayName": "admin",
+    "userData": {
+      "name": "admin",
+      "isAdmin": true
+    }
+  }
+]

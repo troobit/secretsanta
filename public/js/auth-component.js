@@ -48,7 +48,7 @@ window.secretSantaApp = function secretSantaApp() {
             this.loginForm.error = '';
             this.loginForm.loading = true;
 
-            const email = this.loginForm.name.trim() + '@a.a';
+            const email = this.loginForm.name.trim() + '@rtob.dev';
             const password = this.loginForm.password;
 
             if (window.firebaseAuth) {

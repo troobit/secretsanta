@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Seeds Firebase emulators with test data
- * Usage: npm run seed (with emulators running)
+ * Deploys user data to production Firebase
+ * Usage: npm run deploy:users (requires `firebase login` first)
  */
 
 const admin = require('firebase-admin');
@@ -10,11 +10,7 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-// Initialize Firebase Admin with emulator settings
-process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8080';
-process.env.FIREBASE_AUTH_EMULATOR_HOST = 'localhost:9099';
-process.env.FIREBASE_STORAGE_EMULATOR_HOST = 'localhost:9199';
-
+// Initialize Firebase Admin for production (uses ADC from `firebase login`)
 admin.initializeApp({
     projectId: 'secretsanta-melb',
     storageBucket: 'secretsanta-melb.appspot.com'
@@ -89,7 +85,7 @@ async function uploadProfilePictures() {
                 const filename = `${user.uid}.png`;
                 const tempPath = await downloadPlaceholderImage(user.displayName, filename);
 
-                // Upload to Storage emulator
+                // Upload to Storage
                 const destination = `profile-pictures/${filename}`;
                 await storage.upload(tempPath, {
                     destination: destination,
@@ -98,8 +94,8 @@ async function uploadProfilePictures() {
                     }
                 });
 
-                // Generate emulator URL
-                const storageUrl = `http://localhost:9199/v0/b/secretsanta-melb.appspot.com/o/${encodeURIComponent(destination)}?alt=media`;
+                // Generate production Storage URL
+                const storageUrl = `https://firebasestorage.googleapis.com/v0/b/secretsanta-melb.appspot.com/o/${encodeURIComponent(destination)}?alt=media`;
                 pictureUrls[user.uid] = storageUrl;
 
                 console.log(`✅ Uploaded picture for: ${user.displayName}`);
@@ -156,9 +152,8 @@ function cleanup() {
 }
 
 async function main() {
-    console.log('🚀 Starting Firebase Emulator seed process...\n');
-    console.log('⚠️  Make sure Firebase emulators are running!');
-    console.log('   Run: firebase emulators:start\n');
+    console.log('🚀 Starting Firebase Production deployment...\n');
+    console.log('⚠️  Make sure you are logged in with: firebase login\n');
 
     try {
         // Step 1: Create Auth users
@@ -170,18 +165,11 @@ async function main() {
         // Step 3: Create Firestore documents
         await createFirestoreDocuments(pictureUrls);
 
-        console.log('\n✨ Seed process completed successfully!\n');
-        console.log('You can now:');
-        console.log('1. View emulator data at: http://localhost:4000');
-        console.log('2. Access the app at: http://localhost:5000');
-        console.log('3. Login with:');
-        console.log('   - User: john / password123');
-        console.log('   - User: mary / password123');
-        console.log('   - User: paul / password123');
-        console.log('   - Admin: admin / admin123\n');
+        console.log('\n✨ Production deployment completed successfully!\n');
+        console.log('Users deployed to Firebase. Check the Firebase Console to verify.');
 
     } catch (error) {
-        console.error('\n❌ Seed process failed:', error);
+        console.error('\n❌ Production deployment failed:', error);
         process.exit(1);
     } finally {
         cleanup();

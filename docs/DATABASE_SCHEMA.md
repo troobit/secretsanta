@@ -16,12 +16,4 @@
 
 **Security**: Authenticated users read all, write own.
 
-## settings Collection
-
-**Path**: `/settings/config`
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `lockInTime` | Timestamp\|null | Pairing completion time |
-
-**Security**: All read, admin writes.
+```

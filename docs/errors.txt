@@ -1,0 +1,1263 @@
+Uncaught SyntaxError: Unexpected token '{' (at admin-dashboard-component.js:81:19)
+2cdn.min.js:5 Uncaught ReferenceError: img is not defined
+[Alpine] img @ VM326:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: adminDashboard is not defined
+[Alpine] adminDashboard() @ VM336:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+R @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: error is not defined
+[Alpine] error && !loading @ VM320:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: error is not defined
+[Alpine] error @ VM321:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isLocked is not defined
+[Alpine] !isLocked @ VM339:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isLocked is not defined
+[Alpine] isLocked @ VM340:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: lockTimeFormatted is not defined
+[Alpine] lockTimeFormatted @ VM341:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isLocked is not defined
+[Alpine] !isLocked @ VM339:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isProcessing is not defined
+[Alpine] isProcessing || allUsers.length < 3 @ VM342:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isProcessing is not defined
+[Alpine] !isProcessing @ VM344:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isProcessing is not defined
+[Alpine] isProcessing @ VM345:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: allUsers is not defined
+[Alpine] allUsers.length < 3 @ VM346:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: pairingResult is not defined
+[Alpine] pairingResult?.success ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200' @ VM347:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: pairingResult is not defined
+[Alpine] pairingResult @ VM348:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: pairingResult is not defined
+[Alpine] pairingResult?.success ? 'text-green-800' : 'text-red-800' @ VM349:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: pairingResult is not defined
+[Alpine] pairingResult?.message @ VM350:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: allUsers is not defined
+[Alpine] allUsers @ VM351:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+io @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: showConfirmation is not defined
+[Alpine] showConfirmation @ VM353:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isProcessing is not defined
+[Alpine] isProcessing @ VM345:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isProcessing is not defined
+[Alpine] !isProcessing @ VM344:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isProcessing is not defined
+[Alpine] isProcessing @ VM345:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:5 Uncaught ReferenceError: isProcessing is not defined
+[Alpine] isProcessing @ VM345:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+via.placeholder.com/150/4F46E5/FFFFFF?text=Paul:1  GET https://via.placeholder.com/150/4F46E5/FFFFFF?text=Paul net::ERR_NAME_NOT_RESOLVED
+Image
+si @ cdn.min.js:5
+Lr @ cdn.min.js:5
+ge @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+m @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Ne @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+Dn @ cdn.min.js:1
+setTimeout
+Ou @ async_observer.ts:63
+next @ async_observer.ts:43
+ka @ event_manager.ts:563
+Fa @ event_manager.ts:457
+(anonymous) @ event_manager.ts:277
+sh @ sync_engine_impl.ts:1131
+await in sh
+Wl @ sync_engine_impl.ts:605
+await in Wl
+(anonymous) @ remote_store.ts:636
+await in (anonymous)
+onNext @ persistent_stream.ts:673
+(anonymous) @ persistent_stream.ts:541
+(anonymous) @ persistent_stream.ts:595
+(anonymous) @ async_queue_impl.ts:136
+(anonymous) @ async_queue_impl.ts:187
+Promise.then
+cc @ async_queue_impl.ts:185
+enqueue @ async_queue_impl.ts:130
+enqueueAndForget @ async_queue_impl.ts:94
+(anonymous) @ persistent_stream.ts:593
+(anonymous) @ persistent_stream.ts:537
+u_ @ stream_bridge.ts:102
+(anonymous) @ webchannel_connection.ts:406
+(anonymous) @ webchannel_connection.ts:301
+ye @ webchannel_blob_es2018.js:24
+l @ webchannel_blob_es2018.js:22
+A.qa @ webchannel_blob_es2018.js:82
+We @ webchannel_blob_es2018.js:38
+m.Y @ webchannel_blob_es2018.js:31
+m.ba @ webchannel_blob_es2018.js:29
+ye @ webchannel_blob_es2018.js:24
+l @ webchannel_blob_es2018.js:22
+Ot @ webchannel_blob_es2018.js:59
+e.Xa @ webchannel_blob_es2018.js:58
+e.Ca @ webchannel_blob_es2018.js:58
+Ct @ webchannel_blob_es2018.js:54
+e.Ma @ webchannel_blob_es2018.js:52
+Promise.then
+St @ webchannel_blob_es2018.js:52
+e.Ma @ webchannel_blob_es2018.js:52
+Promise.then
+St @ webchannel_blob_es2018.js:52
+e.Pa @ webchannel_blob_es2018.js:52
+Promise.then
+e.send @ webchannel_blob_es2018.js:49
+e.ea @ webchannel_blob_es2018.js:57
+Ge @ webchannel_blob_es2018.js:29
+Wt @ webchannel_blob_es2018.js:74
+e.Da @ webchannel_blob_es2018.js:72
+W @ webchannel_blob_es2018.js:13
+Promise.then
+r @ webchannel_blob_es2018.js:13
+Qt @ webchannel_blob_es2018.js:72
+We @ webchannel_blob_es2018.js:38
+m.Y @ webchannel_blob_es2018.js:31
+m.ba @ webchannel_blob_es2018.js:29
+ye @ webchannel_blob_es2018.js:24
+l @ webchannel_blob_es2018.js:22
+Ot @ webchannel_blob_es2018.js:59
+e.Xa @ webchannel_blob_es2018.js:58
+e.Ca @ webchannel_blob_es2018.js:58
+Ct @ webchannel_blob_es2018.js:54
+e.Ma @ webchannel_blob_es2018.js:52
+Promise.then
+St @ webchannel_blob_es2018.js:52
+e.Pa @ webchannel_blob_es2018.js:52
+Promise.then
+e.send @ webchannel_blob_es2018.js:49
+e.ea @ webchannel_blob_es2018.js:57
+Ge @ webchannel_blob_es2018.js:28
+ze @ webchannel_blob_es2018.js:27
+e.Ea @ webchannel_blob_es2018.js:69
+W @ webchannel_blob_es2018.js:13
+Promise.then
+r @ webchannel_blob_es2018.js:13
+jt @ webchannel_blob_es2018.js:67
+e.connect @ webchannel_blob_es2018.js:65
+C.m @ webchannel_blob_es2018.js:80
+Yo @ webchannel_connection.ts:267
+send @ stream_bridge.ts:70
+q_ @ persistent_stream.ts:322
+Y_ @ persistent_stream.ts:692
+ul @ remote_store.ts:348
+(anonymous) @ remote_store.ts:417
+(anonymous) @ remote_store.ts:416
+(anonymous) @ persistent_stream.ts:528
+(anonymous) @ persistent_stream.ts:595
+(anonymous) @ async_queue_impl.ts:136
+(anonymous) @ async_queue_impl.ts:187
+Promise.then
+cc @ async_queue_impl.ts:185
+enqueue @ async_queue_impl.ts:130
+enqueueAndForget @ async_queue_impl.ts:94
+(anonymous) @ persistent_stream.ts:593
+(anonymous) @ persistent_stream.ts:508
+__ @ stream_bridge.ts:86
+(anonymous) @ webchannel_connection.ts:431
+setTimeout
+T_ @ webchannel_connection.ts:426
+j_ @ persistent_stream.ts:656
+G_ @ persistent_stream.ts:503
+(anonymous) @ persistent_stream.ts:477
+Promise.then
+auth @ persistent_stream.ts:467
+start @ persistent_stream.ts:264
+hl @ remote_store.ts:381
+al @ remote_store.ts:287
+Ql @ sync_engine_impl.ts:374
+await in Ql
+(anonymous) @ sync_engine_impl.ts:313
+kl @ event_manager.ts:170
+(anonymous) @ firestore_client.ts:717
+await in (anonymous)
+(anonymous) @ async_queue_impl.ts:136
+(anonymous) @ async_queue_impl.ts:187
+Promise.then
+cc @ async_queue_impl.ts:185
+enqueue @ async_queue_impl.ts:130
+enqueueAndForget @ async_queue_impl.ts:94
+Lh @ firestore_client.ts:485
+(anonymous) @ reference_impl.ts:127
+get @ reference_impl.ts:131
+(anonymous) @ auth-component.js:28
+next @ auth.ts:358
+(anonymous) @ subscribe.ts:104
+(anonymous) @ subscribe.ts:233
+Promise.then
+sendOne @ subscribe.ts:230
+forEachObserver @ subscribe.ts:220
+next @ subscribe.ts:103
+notifyAuthListeners @ auth_impl.ts:724
+(anonymous) @ auth_impl.ts:448
+Promise.then
+queue @ auth_impl.ts:804
+_updateCurrentUser @ auth_impl.ts:446
+await in _updateCurrentUser
+ir @ credential.ts:56
+await in ir
+nr @ credential.ts:79
+signInWithEmailAndPassword @ email_and_password.ts:355
+login @ auth-component.js:57
+[Alpine] login() @ VM307:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+o @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+via.placeholder.com/150/4F46E5/FFFFFF?text=John:1  GET https://via.placeholder.com/150/4F46E5/FFFFFF?text=John net::ERR_NAME_NOT_RESOLVED
+Image
+si @ cdn.min.js:5
+Lr @ cdn.min.js:5
+ge @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+m @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Ne @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+Dn @ cdn.min.js:1
+setTimeout
+Ou @ async_observer.ts:63
+next @ async_observer.ts:43
+ka @ event_manager.ts:563
+Fa @ event_manager.ts:457
+(anonymous) @ event_manager.ts:277
+sh @ sync_engine_impl.ts:1131
+await in sh
+Wl @ sync_engine_impl.ts:605
+await in Wl
+(anonymous) @ remote_store.ts:636
+await in (anonymous)
+onNext @ persistent_stream.ts:673
+(anonymous) @ persistent_stream.ts:541
+(anonymous) @ persistent_stream.ts:595
+(anonymous) @ async_queue_impl.ts:136
+(anonymous) @ async_queue_impl.ts:187
+Promise.then
+cc @ async_queue_impl.ts:185
+enqueue @ async_queue_impl.ts:130
+enqueueAndForget @ async_queue_impl.ts:94
+(anonymous) @ persistent_stream.ts:593
+(anonymous) @ persistent_stream.ts:537
+u_ @ stream_bridge.ts:102
+(anonymous) @ webchannel_connection.ts:406
+(anonymous) @ webchannel_connection.ts:301
+ye @ webchannel_blob_es2018.js:24
+l @ webchannel_blob_es2018.js:22
+A.qa @ webchannel_blob_es2018.js:82
+We @ webchannel_blob_es2018.js:38
+m.Y @ webchannel_blob_es2018.js:31
+m.ba @ webchannel_blob_es2018.js:29
+ye @ webchannel_blob_es2018.js:24
+l @ webchannel_blob_es2018.js:22
+Ot @ webchannel_blob_es2018.js:59
+e.Xa @ webchannel_blob_es2018.js:58
+e.Ca @ webchannel_blob_es2018.js:58
+Ct @ webchannel_blob_es2018.js:54
+e.Ma @ webchannel_blob_es2018.js:52
+Promise.then
+St @ webchannel_blob_es2018.js:52
+e.Ma @ webchannel_blob_es2018.js:52
+Promise.then
+St @ webchannel_blob_es2018.js:52
+e.Ma @ webchannel_blob_es2018.js:52
+Promise.then
+St @ webchannel_blob_es2018.js:52
+e.Ma @ webchannel_blob_es2018.js:52
+Promise.then
+St @ webchannel_blob_es2018.js:52
+e.Pa @ webchannel_blob_es2018.js:52
+Promise.then
+e.send @ webchannel_blob_es2018.js:49
+e.ea @ webchannel_blob_es2018.js:57
+Ge @ webchannel_blob_es2018.js:29
+Wt @ webchannel_blob_es2018.js:74
+e.Da @ webchannel_blob_es2018.js:72
+W @ webchannel_blob_es2018.js:13
+Promise.then
+r @ webchannel_blob_es2018.js:13
+Qt @ webchannel_blob_es2018.js:72
+We @ webchannel_blob_es2018.js:38
+m.Y @ webchannel_blob_es2018.js:31
+m.ba @ webchannel_blob_es2018.js:29
+ye @ webchannel_blob_es2018.js:24
+l @ webchannel_blob_es2018.js:22
+Ot @ webchannel_blob_es2018.js:59
+e.Xa @ webchannel_blob_es2018.js:58
+e.Ca @ webchannel_blob_es2018.js:58
+Ct @ webchannel_blob_es2018.js:54
+e.Ma @ webchannel_blob_es2018.js:52
+Promise.then
+St @ webchannel_blob_es2018.js:52
+e.Pa @ webchannel_blob_es2018.js:52
+Promise.then
+e.send @ webchannel_blob_es2018.js:49
+e.ea @ webchannel_blob_es2018.js:57
+Ge @ webchannel_blob_es2018.js:28
+ze @ webchannel_blob_es2018.js:27
+e.Ea @ webchannel_blob_es2018.js:69
+W @ webchannel_blob_es2018.js:13
+Promise.then
+r @ webchannel_blob_es2018.js:13
+jt @ webchannel_blob_es2018.js:67
+e.connect @ webchannel_blob_es2018.js:65
+C.m @ webchannel_blob_es2018.js:80
+Yo @ webchannel_connection.ts:267
+send @ stream_bridge.ts:70
+q_ @ persistent_stream.ts:322
+Y_ @ persistent_stream.ts:692
+ul @ remote_store.ts:348
+(anonymous) @ remote_store.ts:417
+(anonymous) @ remote_store.ts:416
+(anonymous) @ persistent_stream.ts:528
+(anonymous) @ persistent_stream.ts:595
+(anonymous) @ async_queue_impl.ts:136
+(anonymous) @ async_queue_impl.ts:187
+Promise.then
+cc @ async_queue_impl.ts:185
+enqueue @ async_queue_impl.ts:130
+enqueueAndForget @ async_queue_impl.ts:94
+(anonymous) @ persistent_stream.ts:593
+(anonymous) @ persistent_stream.ts:508
+__ @ stream_bridge.ts:86
+(anonymous) @ webchannel_connection.ts:431
+setTimeout
+T_ @ webchannel_connection.ts:426
+j_ @ persistent_stream.ts:656
+G_ @ persistent_stream.ts:503
+(anonymous) @ persistent_stream.ts:477
+Promise.then
+auth @ persistent_stream.ts:467
+start @ persistent_stream.ts:264
+hl @ remote_store.ts:381
+al @ remote_store.ts:287
+Ql @ sync_engine_impl.ts:374
+await in Ql
+(anonymous) @ sync_engine_impl.ts:313
+kl @ event_manager.ts:170
+(anonymous) @ firestore_client.ts:717
+await in (anonymous)
+(anonymous) @ async_queue_impl.ts:136
+(anonymous) @ async_queue_impl.ts:187
+Promise.then
+cc @ async_queue_impl.ts:185
+enqueue @ async_queue_impl.ts:130
+enqueueAndForget @ async_queue_impl.ts:94
+Lh @ firestore_client.ts:485
+(anonymous) @ reference_impl.ts:127
+get @ reference_impl.ts:131
+(anonymous) @ auth-component.js:28
+next @ auth.ts:358
+(anonymous) @ subscribe.ts:104
+(anonymous) @ subscribe.ts:233
+Promise.then
+sendOne @ subscribe.ts:230
+forEachObserver @ subscribe.ts:220
+next @ subscribe.ts:103
+notifyAuthListeners @ auth_impl.ts:724
+(anonymous) @ auth_impl.ts:448
+Promise.then
+queue @ auth_impl.ts:804
+_updateCurrentUser @ auth_impl.ts:446
+await in _updateCurrentUser
+ir @ credential.ts:56
+await in ir
+nr @ credential.ts:79
+signInWithEmailAndPassword @ email_and_password.ts:355
+login @ auth-component.js:57
+[Alpine] login() @ VM307:3
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+o @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+
+
+
+Messages:
+
+(index):64 cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+(anonymous) @ (index):64
+(anonymous) @ (index):64
+cdn.min.js:1 Alpine Expression Error: img is not defined
+
+Expression: "img"
+
+ <img x-show=​"gifteeData?.profilePicUrl" :src=​"gifteeData?.profilePicUrl" :alt=​"img" class=​"w-20 h-20 rounded-full object-cover" src=​"https:​/​/​via.placeholder.com/​150/​4F46E5/​FFFFFF?text=John">​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: img is not defined
+
+Expression: "img"
+
+ <img x-show=​"userData?.profilePicUrl" :src=​"userData?.profilePicUrl" :alt=​"img" class=​"w-20 h-20 rounded-full object-cover" src=​"https:​/​/​via.placeholder.com/​150/​4F46E5/​FFFFFF?text=Paul">​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: adminDashboard is not defined
+
+Expression: "adminDashboard()"
+
+ <div x-show=​"user && isAdmin" x-data=​"adminDashboard()​" class=​"container mx-auto px-4 py-6 max-w-4xl" style=​"display:​ none;​">​…​</div>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+R @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: error is not defined
+
+Expression: "error && !loading"
+
+ <div x-show=​"error && !loading" class=​"bg-red-50 border border-red-200 rounded-lg p-6 mb-6" style=​"display:​ none;​">​…​</div>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: error is not defined
+
+Expression: "error"
+
+ <p class=​"text-red-600" x-text=​"error">​</p>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isLocked is not defined
+
+Expression: "!isLocked"
+
+ <div x-show=​"!isLocked" class=​"flex items-center gap-2 text-yellow-600" style=​"display:​ none;​">​…​</div>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isLocked is not defined
+
+Expression: "isLocked"
+
+ <div x-show=​"isLocked" class=​"flex items-center gap-2 text-green-600" style=​"display:​ none;​">​…​</div>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: lockTimeFormatted is not defined
+
+Expression: "lockTimeFormatted"
+
+ <span class=​"text-sm text-gray-600" x-text=​"lockTimeFormatted">​</span>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isLocked is not defined
+
+Expression: "!isLocked"
+
+ <div x-show=​"!isLocked" style=​"display:​ none;​">​…​</div>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isProcessing is not defined
+
+Expression: "isProcessing || allUsers.length < 3"
+
+ <button @click=​"showConfirmation = true" :disabled=​"isProcessing || allUsers.length < 3" class=​"px-6 py-3 bg-red-600 hover:​bg-red-700 text-white font-medium rounded-lg transition disabled:​bg-gray-400 disabled:​cursor-not-allowed" disabled=​"disabled">​…​</button>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isProcessing is not defined
+
+Expression: "!isProcessing"
+
+ <span x-show=​"!isProcessing" style=​"display:​ none;​">​Trigger Pairing​</span>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isProcessing is not defined
+
+Expression: "isProcessing"
+
+ <span x-show=​"isProcessing" style=​"display:​ none;​">​Processing...​</span>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: allUsers is not defined
+
+Expression: "allUsers.length < 3"
+
+ <p class=​"text-sm text-gray-500 mt-2" x-show=​"allUsers.length < 3" style=​"display:​ none;​">​…​</p>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: pairingResult is not defined
+
+Expression: "pairingResult?.success ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'"
+
+ <div x-show=​"pairingResult" class=​"mt-4 p-4 rounded-lg" :class=​"pairingResult?.success ? 'bg-green-50 border border-green-200' :​ 'bg-red-50 border border-red-200'" style=​"display:​ none;​">​…​</div>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: pairingResult is not defined
+
+Expression: "pairingResult"
+
+ <div x-show=​"pairingResult" class=​"mt-4 p-4 rounded-lg" :class=​"pairingResult?.success ? 'bg-green-50 border border-green-200' :​ 'bg-red-50 border border-red-200'" style=​"display:​ none;​">​…​</div>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: pairingResult is not defined
+
+Expression: "pairingResult?.success ? 'text-green-800' : 'text-red-800'"
+
+ <p :class=​"pairingResult?.success ? 'text-green-800' :​ 'text-red-800'" x-text=​"pairingResult?.message" class>​</p>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: pairingResult is not defined
+
+Expression: "pairingResult?.message"
+
+ <p :class=​"pairingResult?.success ? 'text-green-800' :​ 'text-red-800'" x-text=​"pairingResult?.message" class>​</p>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: allUsers is not defined
+
+Expression: "allUsers"
+
+ <template x-for=​"user in allUsers" :key=​"user.id">​…​</template>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+io @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: showConfirmation is not defined
+
+Expression: "showConfirmation"
+
+ <div x-show=​"showConfirmation" class=​"fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" style=​"display:​ none;​">​…​</div>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isProcessing is not defined
+
+Expression: "isProcessing"
+
+ <button @click=​"triggerPairing()​" :disabled=​"isProcessing" class=​"flex-1 px-4 py-2 bg-red-600 hover:​bg-red-700 text-white font-medium rounded-lg transition disabled:​bg-gray-400">​…​</button>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isProcessing is not defined
+
+Expression: "!isProcessing"
+
+ <span x-show=​"!isProcessing" style=​"display:​ none;​">​Yes, Trigger Pairing​</span>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isProcessing is not defined
+
+Expression: "isProcessing"
+
+ <span x-show=​"isProcessing" style=​"display:​ none;​">​Processing...​</span>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+cdn.min.js:1 Alpine Expression Error: isProcessing is not defined
+
+Expression: "isProcessing"
+
+ <button @click=​"showConfirmation = false" :disabled=​"isProcessing" class=​"flex-1 px-4 py-2 bg-gray-200 hover:​bg-gray-300 text-gray-800 font-medium rounded-lg transition">​ Cancel ​</button>​
+Fn @ cdn.min.js:1
+re @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+Promise.catch
+(anonymous) @ cdn.min.js:5
+or @ cdn.min.js:1
+(anonymous) @ cdn.min.js:5
+r @ cdn.min.js:5
+on @ cdn.min.js:5
+N @ cdn.min.js:1
+(anonymous) @ cdn.min.js:1
+An @ cdn.min.js:5
+r @ cdn.min.js:5
+n @ cdn.min.js:5
+pr @ cdn.min.js:5
+S @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5
+yr @ cdn.min.js:5
+(anonymous) @ cdn.min.js:5

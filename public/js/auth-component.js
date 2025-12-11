@@ -19,7 +19,6 @@ window.secretSantaApp = function secretSantaApp() {
                     // Set up auth state listener
                     window.firebaseAuth.onAuthStateChanged(async (user) => {
                         this.user = user;
-                        this.loading = false;
                         this.updateTheme();
 
                         // Check if user is admin by fetching their Firestore document
@@ -39,6 +38,9 @@ window.secretSantaApp = function secretSantaApp() {
                         } else {
                             this.isAdmin = false;
                         }
+
+                        // Set loading to false after admin check completes
+                        this.loading = false;
                     });
                 }
             }, 50);

@@ -136,19 +136,9 @@ async function createFirestoreDocuments(pictureUrls) {
             console.error(`❌ Error creating doc for ${user.uid}:`, error.message);
         }
     }
-
-    // Create settings document
-    try {
-        await db.collection('settings').doc('config').set({
-            lockInTime: null
-        });
-        console.log('✅ Created Firestore doc: settings/config');
-    } catch (error) {
-        console.error('❌ Error creating settings doc:', error.message);
-    }
 }
 
-function cleanup() {
+seedEmulators().then(() => {
     const tempDir = path.join(__dirname, 'temp');
     if (fs.existsSync(tempDir)) {
         fs.rmSync(tempDir, { recursive: true, force: true });
@@ -156,38 +146,38 @@ function cleanup() {
 }
 
 async function main() {
-    console.log('🚀 Starting Firebase Emulator seed process...\n');
-    console.log('⚠️  Make sure Firebase emulators are running!');
-    console.log('   Run: firebase emulators:start\n');
+        console.log('🚀 Starting Firebase Emulator seed process...\n');
+        console.log('⚠️  Make sure Firebase emulators are running!');
+        console.log('   Run: firebase emulators:start\n');
 
-    try {
-        // Step 1: Create Auth users
-        await createAuthUsers();
+        try {
+            // Step 1: Create Auth users
+            await createAuthUsers();
 
-        // Step 2: Upload profile pictures
-        const pictureUrls = await uploadProfilePictures();
+            // Step 2: Upload profile pictures
+            const pictureUrls = await uploadProfilePictures();
 
-        // Step 3: Create Firestore documents
-        await createFirestoreDocuments(pictureUrls);
+            // Step 3: Create Firestore documents
+            await createFirestoreDocuments(pictureUrls);
 
-        console.log('\n✨ Seed process completed successfully!\n');
-        console.log('You can now:');
-        console.log('1. View emulator data at: http://localhost:4000');
-        console.log('2. Access the app at: http://localhost:5000');
-        console.log('3. Login with:');
-        console.log('   - User: john / password123');
-        console.log('   - User: mary / password123');
-        console.log('   - User: paul / password123');
-        console.log('   - Admin: admin / admin123\n');
+            console.log('\n✨ Seed process completed successfully!\n');
+            console.log('You can now:');
+            console.log('1. View emulator data at: http://localhost:4000');
+            console.log('2. Access the app at: http://localhost:5000');
+            console.log('3. Login with:');
+            console.log('   - User: john / password123');
+            console.log('   - User: mary / password123');
+            console.log('   - User: paul / password123');
+            console.log('   - Admin: admin / admin123\n');
 
-    } catch (error) {
-        console.error('\n❌ Seed process failed:', error);
-        process.exit(1);
-    } finally {
-        cleanup();
-        process.exit(0);
+        } catch (error) {
+            console.error('\n❌ Seed process failed:', error);
+            process.exit(1);
+        } finally {
+            cleanup();
+            process.exit(0);
+        }
     }
-}
 
 // Run the script
 main();

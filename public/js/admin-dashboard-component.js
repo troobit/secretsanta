@@ -3,14 +3,10 @@ window.adminDashboard = function adminDashboard() {
         loading: true,
         error: '',
         allUsers: [],
-        settings: null,
-        isLocked: false,
-        lockTimeFormatted: '',
         isProcessing: false,
         showConfirmation: false,
         pairingResult: null,
         unsubscribeUsers: null,
-        unsubscribeSettings: null,
 
         async init() {
             // Wait for Firebase to be initialized
@@ -34,40 +30,12 @@ window.adminDashboard = function adminDashboard() {
                             snapshot.forEach((doc) => {
                                 this.allUsers.push({ id: doc.id, ...doc.data() });
                             });
-                        },
-                        (error) => {
-                            console.error('Firestore users snapshot error:', error);
-                            console.error('Error code:', error.code);
-                            console.error('Error message:', error.message);
-                            this.error = 'Failed to load users: ' + error.message;
-                        }
-                    );
-
-                // Set up real-time listener for settings
-                this.unsubscribeSettings = window.firebaseFirestore
-                    .collection('settings')
-                    .doc('config')
-                    .onSnapshot(
-                        (doc) => {
-                            if (doc.exists) {
-                                this.settings = doc.data();
-                                this.isLocked = !!this.settings.lockInTime;
-
-                                if (this.settings.lockInTime) {
-                                    const lockDate = this.settings.lockInTime.toDate();
-                                    this.lockTimeFormatted = `(${lockDate.toLocaleString('en-IE')})`;
-                                }
-                            } else {
-                                this.settings = { lockInTime: null };
-                                this.isLocked = false;
-                            }
                             this.loading = false;
                         },
                         (error) => {
-                            console.error('Firestore settings snapshot error:', error);
-                            console.error('Error code:', error.code);
+                            console.error('Firestore users snapshot error:', error);
                             console.error('Error message:', error.message);
-                            this.error = 'Failed to load settings: ' + error.message;
+                            this.error = 'Failed to load users: ' + error.message;
                             this.loading = false;
                         }
                     );
@@ -110,13 +78,11 @@ window.adminDashboard = function adminDashboard() {
         },
 
         destroy() {
-            // Clean up listeners
-            if (this.unsubscribeUsers) {
-                this.unsubscribeUsers();
+            destroy() {
+                // Clean up listeners
+                if (this.unsubscribeUsers) {
+                    this.unsubscribeUsers();
+                }
             }
-            if (this.unsubscribeSettings) {
-                this.unsubscribeSettings();
-            }
-        }
+        };
     };
-};

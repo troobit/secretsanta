@@ -48,16 +48,6 @@ def triggerSecretSantaPairing(req: https_fn.CallableRequest) -> dict:
                 message="Only admin users can trigger pairing"
             )
 
-        # Check if pairing already completed (lockInTime exists)
-        settings_doc = db.collection('settings').document('config').get()
-        if settings_doc.exists:
-            settings_data = settings_doc.to_dict()
-            if settings_data.get('lockInTime') is not None:
-                raise https_fn.HttpsError(
-                    code=https_fn.FunctionsErrorCode.FAILED_PRECONDITION,
-                    message="Pairing already completed. Cannot trigger again."
-                )
-
         # Fetch all non-admin users for pairing
         users_ref = db.collection('users')
         users_query = users_ref.where(
@@ -102,22 +92,7 @@ def triggerSecretSantaPairing(req: https_fn.CallableRequest) -> dict:
             user_ref = db.collection('users').document(giver_id)
             batch.update(user_ref, {'gifteeId': receiver_id})
 
-        settings_ref = db.collection('settings').document('config')
-        batch.set(settings_ref, {
-            'lockInTime': firestore.SERVER_TIMESTAMP
-        }, merge=True)
-
         batch.commit()
-
-        return {
-            'success': True,
-            'message': 'Pairing completed successfully',
-            'pairingCount': len(pairings),
-            'timestamp': datetime.now().isoformat()
-        }
-
-    except https_fn.HttpsError:
-        raise
     except Exception as e:
         raise https_fn.HttpsError(
             code=https_fn.FunctionsErrorCode.INTERNAL,

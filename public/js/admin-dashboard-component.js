@@ -55,9 +55,13 @@ window.adminDashboard = function adminDashboard() {
                 const pairFunction = window.firebaseFunctions.httpsCallable('triggerSecretSantaPairing');
                 const result = await pairFunction();
 
+                const count = (result && result.data && typeof result.data.pairingsCount === 'number')
+                    ? result.data.pairingsCount
+                    : 0;
+
                 this.pairingResult = {
                     success: true,
-                    message: `Pairing successful! ${result.data.pairingsCount} users paired.`
+                    message: `Pairing successful! ${count} users paired.`
                 };
             } catch (error) {
 
@@ -78,11 +82,10 @@ window.adminDashboard = function adminDashboard() {
         },
 
         destroy() {
-            destroy() {
-                // Clean up listeners
-                if (this.unsubscribeUsers) {
-                    this.unsubscribeUsers();
-                }
+            // Clean up listeners
+            if (this.unsubscribeUsers) {
+                this.unsubscribeUsers();
             }
-        };
+        }
     };
+};

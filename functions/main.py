@@ -93,6 +93,12 @@ def triggerSecretSantaPairing(req: https_fn.CallableRequest) -> dict:
             batch.update(user_ref, {'gifteeId': receiver_id})
 
         batch.commit()
+
+        # Return pairing summary payload for the admin dashboard
+        return {
+            'pairingsCount': len(pairings),
+            'timestamp': datetime.utcnow().isoformat()
+        }
     except Exception as e:
         raise https_fn.HttpsError(
             code=https_fn.FunctionsErrorCode.INTERNAL,

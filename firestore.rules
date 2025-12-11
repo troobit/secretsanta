@@ -16,19 +16,14 @@ service cloud.firestore {
       return affectedKeys.hasOnly(['wishlist']);
     }
     
-    // Users collection: authenticated users can read all, write only their own document
+    // Users collection: admins can read all, users can only read their own document
     match /users/{userId} {
-      allow read: if request.auth != null;
+      allow read: if request.auth != null && (isAdmin() || request.auth.uid == userId);
       allow create: if request.auth != null && request.auth.uid == userId;
       allow update: if request.auth != null 
                     && request.auth.uid == userId
-                    && (!isLocked() || onlyWishlistChanged());
+                    && onlyWishlistChanged();
       allow delete: if false;
-    }
-      allow update: if request.auth != null 
-                    && request.auth.uid == userId;
-      allow delete: if false;auth != null;
-      allow write: if request.auth != null && isAdmin();
     }
   }
 }

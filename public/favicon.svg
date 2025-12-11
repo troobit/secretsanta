@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <style>
+      .number { 
+        font-family: Arial, sans-serif; 
+        font-weight: bold; 
+        font-size: 28px;
+        fill: #ffffff;
+      }
+      .layer {
+        transition: all 0.3s ease;
+      }
+    </style>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#2c3e50" stroke="#34495e" stroke-width="2"/>
+  
+  <!-- Layer 1 - Top Left (1) -->
+  <g class="layer">
+    <circle cx="30" cy="30" r="18" fill="#e74c3c" opacity="0.9"/>
+    <text x="30" y="38" class="number" text-anchor="middle">1</text>
+  </g>
+  
+  <!-- Layer 2 - Top Right (3) -->
+  <g class="layer">
+    <circle cx="70" cy="30" r="18" fill="#3498db" opacity="0.9"/>
+    <text x="70" y="38" class="number" text-anchor="middle">3</text>
+  </g>
+  
+  <!-- Layer 3 - Bottom Left (1) -->
+  <g class="layer">
+    <circle cx="30" cy="70" r="18" fill="#2ecc71" opacity="0.9"/>
+    <text x="30" y="78" class="number" text-anchor="middle">1</text>
+  </g>
+  
+  <!-- Layer 4 - Bottom Right (2) -->
+  <g class="layer">
+    <circle cx="70" cy="70" r="18" fill="#f39c12" opacity="0.9"/>
+    <text x="70" y="78" class="number" text-anchor="middle">2</text>
+  </g>
+</svg>

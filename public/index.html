@@ -6,13 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
     content="Secret Santa gift exchange - manage your Secret Santa participation, view your assigned giftee, and update your wishlist.">
-  <title>Mellifluous Rd - Secret Santa</title>
+  <title>Sonorous Rd - Secret Santa</title>
 
   <!-- TailwindCSS via Play CDN for development -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Site custom styling (example / per-user overrides loaded later) -->
   <link rel="stylesheet" href="css/theme-default.css">
+
+  <!-- Prevent flash of unstyled content (FOUC) while Alpine.js initializes -->
+  <style>
+    [x-cloak] {
+      display: none !important;
+    }
+  </style>
 
   <script src="/__/firebase/12.6.0/firebase-app-compat.js"></script>
   <script src="/__/firebase/12.6.0/firebase-auth-compat.js"></script>
@@ -52,7 +59,7 @@
   <div id="app" x-data="secretSantaApp()" x-cloak>
     <div x-show="!user" class="min-h-screen flex items-center justify-center px-4">
       <div class="w-full max-w-md">
-        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Mellifluous Road's Secret Santa</h1>
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Sonorous Road's Secret Santa</h1>
 
         <!-- Login form -->
         <div class="bg-white rounded-lg shadow-md p-6">
@@ -87,105 +94,97 @@
       </div>
     </div>
 
-    <div x-show="user && !isAdmin" x-data="userDashboard()" class="container mx-auto px-4 py-6 max-w-2xl">
-      <header class="mb-6 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-800"><span x-text="userData?.name"></span>'s Secret Santa</h1>
-        <button @click="logout()" class="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg transition">
-          Log Out
-        </button>
-      </header>
+    <template x-if="user && !isAdmin">
+      <div x-data="userDashboard()" class="container mx-auto px-4 py-6 max-w-2xl">
+        <header class="mb-6 flex justify-between items-center">
+          <h1 class="text-2xl font-bold text-gray-800"><span x-text="userData?.name"></span>'s Secret Santa</h1>
+          <button @click="logout()" class="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg transition">
+            Log Out
+          </button>
+        </header>
 
-      <!-- Loading state -->
-      <div x-show="loading" class="bg-white rounded-lg shadow-md p-6">
-        <p class="text-center text-gray-600">Loading...</p>
-      </div>
-
-      <!-- Error state -->
-      <div x-show="error && !loading" class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
-        <p class="text-red-600" x-text="error"></p>
-      </div>
-      <div x-show="!loading && userData" class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Giftee</h2>
-        <div x-show="!userData?.gifteeId" class="text-center py-8">
-          <p class="text-gray-600">Pending...</p>
-          <p class="text-sm text-gray-500 mt-2">Check back after Ronan triggers the pairing!</p>
+        <!-- Loading state -->
+        <div x-show="loading" class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-center text-gray-600">Loading...</p>
         </div>
-        <div x-show="userData?.gifteeId && gifteeData">
+
+        <!-- Error state -->
+        <div x-show="error && !loading" class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+          <p class="text-red-600" x-text="error"></p>
+        </div>
+        <div x-show="!loading && userData" class="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Giftee</h2>
+          <div x-show="!userData?.gifteeId" class="text-center py-8">
+            <p class="text-gray-600">Pending...</p>
+            <p class="text-sm text-gray-500 mt-2">Check back after Ronan triggers the pairing!</p>
+          </div>
+          <div x-show="userData?.gifteeId && gifteeData">
+            <div class="flex items-start gap-4 mb-6">
+              <img x-show="gifteeData?.profilePicUrl" :src="gifteeData?.profilePicUrl" :alt="gifteeData?.name"
+                class="w-20 h-20 rounded-full object-cover">
+              <div class="flex-1">
+                <h3 class="text-lg font-semibold text-gray-800" x-text="gifteeData?.name"></h3>
+              </div>
+            </div>
+            <div>
+              <h4 class="text-sm font-medium text-gray-700 mb-2">Your Wishlist</h4>
+              <div class="bg-gray-50 rounded-lg p-4">
+                <p class="text-gray-800 whitespace-pre-wrap" x-text="gifteeData?.wishlist || 'No wishlist yet'"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div x-show="!loading && userData" class="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Profile</h2>
           <div class="flex items-start gap-4 mb-6">
-            <img x-show="gifteeData?.profilePicUrl" :src="gifteeData?.profilePicUrl" :alt="img"
+            <img x-show="userData?.profilePicUrl" :src="userData?.profilePicUrl" :alt="userData?.name"
               class="w-20 h-20 rounded-full object-cover">
             <div class="flex-1">
-              <h3 class="text-lg font-semibold text-gray-800" x-text="gifteeData?.name"></h3>
+              <h3 class="text-lg font-semibold text-gray-800" x-text="userData?.name"></h3>
             </div>
           </div>
           <div>
-            <h4 class="text-sm font-medium text-gray-700 mb-2">Your Wishlist</h4>
-            <div class="bg-gray-50 rounded-lg p-4">
-              <p class="text-gray-800 whitespace-pre-wrap" x-text="gifteeData?.wishlist || 'No wishlist yet'"></p>
+            <label for="wishlist" class="block text-sm font-medium text-gray-700 mb-2">
+              Your Wishlist
+            </label>
+            <textarea id="wishlist" x-model="wishlistInput" rows="4"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Enter some wishlist items to help your gifter get something you'd like..."></textarea>
+            <div class="mt-3 flex items-center gap-3">
+              <button @click="saveWishlist()" :disabled="savingWishlist"
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition disabled:bg-gray-400 disabled:cursor-not-allowed">
+                <span x-show="!savingWishlist">Save</span>
+                <span x-show="savingWishlist">Saving...</span>
+              </button>
+              <span x-show="wishlistSaved" x-transition class="text-sm text-green-600">
+                Saved!
+              </span>
             </div>
           </div>
         </div>
       </div>
-      <div x-show="!loading && userData" class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Profile</h2>
-        <div class="flex items-start gap-4 mb-6">
-          <img x-show="userData?.profilePicUrl" :src="userData?.profilePicUrl" :alt="img"
-            class="w-20 h-20 rounded-full object-cover">
-          <div class="flex-1">
-            <h3 class="text-lg font-semibold text-gray-800" x-text="userData?.name"></h3>
-          </div>
+    </template>
+
+    <template x-if="user && isAdmin">
+      <div x-data="adminDashboard()" class="container mx-auto px-4 py-6 max-w-4xl">
+        <header class="mb-6 flex justify-between items-center">
+          <h1 class="text-2xl font-bold text-gray-800">Secret Santa - Admin</h1>
+          <button @click="logout()" class="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg transition">
+            Log Out
+          </button>
+        </header>
+
+        <!-- Loading state -->
+        <div x-show="loading" class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-center text-gray-600">Loading...</p>
         </div>
-        <div>
-          <label for="wishlist" class="block text-sm font-medium text-gray-700 mb-2">
-            Your Wishlist
-          </label>
-          <textarea id="wishlist" x-model="wishlistInput" rows="4"
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter some wishlist items to help your gifter get something you'd like..."></textarea>
-          <div class="mt-3 flex items-center gap-3">
-            <button @click="saveWishlist()" :disabled="savingWishlist"
-              class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition disabled:bg-gray-400 disabled:cursor-not-allowed">
-              <span x-show="!savingWishlist">Save</span>
-              <span x-show="savingWishlist">Saving...</span>
-            </button>
-            <span x-show="wishlistSaved" x-transition class="text-sm text-green-600">
-              Saved!
-            </span>
-          </div>
+
+        <!-- Error state -->
+        <div x-show="error && !loading" class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+          <p class="text-red-600" x-text="error"></p>
         </div>
-      </div>
-    </div>
-
-    <div x-show="user && isAdmin" x-data="adminDashboard()" class="container mx-auto px-4 py-6 max-w-4xl">
-      <header class="mb-6 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-800">Secret Santa - Admin</h1>
-        <button @click="logout()" class="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-lg transition">
-          Log Out
-        </button>
-      </header>
-
-      <!-- Loading state -->
-      <div x-show="loading" class="bg-white rounded-lg shadow-md p-6">
-        <p class="text-center text-gray-600">Loading...</p>
-      </div>
-
-      <!-- Error state -->
-      <div x-show="error && !loading" class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
-        <p class="text-red-600" x-text="error"></p>
-      </div>
-      <div x-show="!loading" class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">Pairing Status</h2>
-
-        <div class="mb-4">
-          <div x-show="!isLocked" class="flex items-center gap-2 text-yellow-600">
-            <span class="font-medium">Pairing not yet triggered</span>
-          </div>
-          <div x-show="isLocked" class="flex items-center gap-2 text-green-600">
-            <span class="font-medium">Pairing complete</span>
-            <span class="text-sm text-gray-600" x-text="lockTimeFormatted"></span>
-          </div>
-        </div>
-        <div x-show="!isLocked">
+        <div x-show="!loading" class="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Trigger Pairing</h2>
           <button @click="showConfirmation = true" :disabled="isProcessing || allUsers.length < 3"
             class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition disabled:bg-gray-400 disabled:cursor-not-allowed">
             <span x-show="!isProcessing">Trigger Pairing</span>
@@ -194,56 +193,56 @@
           <p class="text-sm text-gray-500 mt-2" x-show="allUsers.length < 3">
             At least 3 (non-admin) users required to trigger pairing
           </p>
+          <div x-show="pairingResult" class="mt-4 p-4 rounded-lg"
+            :class="pairingResult?.success ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'">
+            <p :class="pairingResult?.success ? 'text-green-800' : 'text-red-800'" x-text="pairingResult?.message"></p>
+          </div>
         </div>
-        <div x-show="pairingResult" class="mt-4 p-4 rounded-lg"
-          :class="pairingResult?.success ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'">
-          <p :class="pairingResult?.success ? 'text-green-800' : 'text-red-800'" x-text="pairingResult?.message"></p>
-        </div>
-      </div>
-      <div x-show="!loading" class="bg-white rounded-lg shadow-md p-6">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">Users</h2>
+        <div x-show="!loading" class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Users</h2>
 
-        <div class="space-y-4">
-          <template x-for="user in allUsers" :key="user.id">
-            <div class="border border-gray-200 rounded-lg p-4">
-              <div class="flex items-start gap-4">
-                <img x-show="user.profilePicUrl" :src="user.profilePicUrl" :alt="user.name"
-                  class="w-16 h-16 rounded-full object-cover">
-                <div class="flex-1">
-                  <h3 class="font-semibold text-gray-800" x-text="user.name"></h3>
-                  <p class="text-sm text-gray-600">
-                    Wishlist: <span x-text="user.wishlist ? 'Provided' : 'Not yet'"></span>
-                  </p>
-                  <p class="text-sm font-medium mt-1" :class="user.gifteeId ? 'text-green-600' : 'text-gray-500'">
-                    Pairing: <span x-text="user.gifteeId ? 'Assigned' : 'Pending'"></span>
-                  </p>
+          <div class="space-y-4">
+            <template x-for="usr in allUsers" :key="usr.id">
+              <div class="border border-gray-200 rounded-lg p-4">
+                <div class="flex items-start gap-4">
+                  <img x-show="usr.profilePicUrl" :src="usr.profilePicUrl" :alt="usr.name"
+                    class="w-16 h-16 rounded-full object-cover">
+                  <div class="flex-1">
+                    <h3 class="font-semibold text-gray-800" x-text="usr.name"></h3>
+                    <p class="text-sm text-gray-600">
+                      Wishlist: <span x-text="usr.wishlist ? 'Provided' : 'Not yet'"></span>
+                    </p>
+                    <p class="text-sm font-medium mt-1" :class="usr.gifteeId ? 'text-green-600' : 'text-gray-500'">
+                      Pairing: <span x-text="usr.gifteeId ? 'Assigned' : 'Pending'"></span>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </template>
+            </template>
+          </div>
         </div>
-      </div>
-      <div x-show="showConfirmation" x-cloak
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-lg p-6 max-w-md w-full">
-          <h3 class="text-lg font-semibold mb-4 text-gray-800">Confirm Pairing</h3>
-          <p class="text-gray-600 mb-6">
-            Are you sure you want to trigger the pairing? This action cannot be undone.
-          </p>
-          <div class="flex gap-3">
-            <button @click="triggerPairing()" :disabled="isProcessing"
-              class="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition disabled:bg-gray-400">
-              <span x-show="!isProcessing">Yes, Trigger Pairing</span>
-              <span x-show="isProcessing">Processing...</span>
-            </button>
-            <button @click="showConfirmation = false" :disabled="isProcessing"
-              class="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition">
-              Cancel
-            </button>
+        <div x-show="showConfirmation" x-cloak
+          class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div class="bg-white rounded-lg p-6 max-w-md w-full">
+            <h3 class="text-lg font-semibold mb-4 text-gray-800">Confirm Pairing</h3>
+            <p class="text-gray-600 mb-6">
+              Are you sure you want to trigger the pairing? This action cannot be undone.
+            </p>
+            <div class="flex gap-3">
+              <button @click="triggerPairing()" :disabled="isProcessing"
+                class="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition disabled:bg-gray-400">
+                <span x-show="!isProcessing">Yes, Trigger Pairing</span>
+                <span x-show="isProcessing">Processing...</span>
+              </button>
+              <button @click="showConfirmation = false" :disabled="isProcessing"
+                class="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition">
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </template>
 
   </div>
 

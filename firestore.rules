@@ -10,7 +10,7 @@ service cloud.firestore {
     
     // Helper function to check if user is admin
     function isAdmin() {
-      let userId = request.auth.token.email.split('@')[0];
+      let userId = request.auth.uid;
       let userDoc = get(/databases/$(database)/documents/users/$(userId));
       return userDoc != null && userDoc.data.isAdmin == true;
     }
@@ -24,9 +24,9 @@ service cloud.firestore {
     // Users collection: authenticated users can read all, write only their own document
     match /users/{userId} {
       allow read: if request.auth != null;
-      allow create: if request.auth != null && request.auth.token.email.split('@')[0] == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
       allow update: if request.auth != null 
-                    && request.auth.token.email.split('@')[0] == userId
+                    && request.auth.uid == userId
                     && (!isLocked() || onlyWishlistChanged());
       allow delete: if false;
     }

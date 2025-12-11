@@ -36,7 +36,10 @@ window.adminDashboard = function adminDashboard() {
                             });
                         },
                         (error) => {
-                            this.error = 'Failed to load users';
+                            console.error('Firestore users snapshot error:', error);
+                            console.error('Error code:', error.code);
+                            console.error('Error message:', error.message);
+                            this.error = 'Failed to load users: ' + error.message;
                         }
                     );
 
@@ -61,7 +64,10 @@ window.adminDashboard = function adminDashboard() {
                             this.loading = false;
                         },
                         (error) => {
-                            this.error = 'Failed to load settings';
+                            console.error('Firestore settings snapshot error:', error);
+                            console.error('Error code:', error.code);
+                            console.error('Error message:', error.message);
+                            this.error = 'Failed to load settings: ' + error.message;
                             this.loading = false;
                         }
                     );

@@ -63,7 +63,10 @@ window.userDashboard = function userDashboard() {
                             }
                         },
                         (error) => {
-                            this.error = 'Failed to load user data';
+                            console.error('Firestore snapshot error:', error);
+                            console.error('Error code:', error.code);
+                            console.error('Error message:', error.message);
+                            this.error = 'Failed to load user data: ' + error.message;
                             this.loading = false;
                         }
                     );

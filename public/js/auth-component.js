@@ -19,7 +19,6 @@ window.secretSantaApp = function secretSantaApp() {
                     // Set up auth state listener
                     window.firebaseAuth.onAuthStateChanged(async (user) => {
                         this.user = user;
-                        this.loading = false;
                         this.updateTheme();
 
                         // Check if user is admin by fetching their Firestore document
@@ -39,6 +38,9 @@ window.secretSantaApp = function secretSantaApp() {
                         } else {
                             this.isAdmin = false;
                         }
+
+                        // Set loading to false after admin check completes
+                        this.loading = false;
                     });
                 }
             }, 50);
@@ -75,19 +77,26 @@ window.secretSantaApp = function secretSantaApp() {
         },
 
         updateTheme() {
-            if (this.user && this.user.email) {
-                const username = this.user.email.split('@')[0].toLowerCase();
-                const existing = document.getElementById('user-custom-css');
+            const existing = document.getElementById('user-custom-css');
 
-                if (existing) {
-                    existing.href = `css/${username}.css`;
-                } else {
-                    const link = document.createElement('link');
-                    link.id = 'user-custom-css';
-                    link.rel = 'stylesheet';
-                    link.href = `css/${username}.css`;
-                    document.head.appendChild(link);
+            // If no user, remove any custom stylesheet
+            if (!this.user || !this.user.email) {
+                if (existing && existing.parentNode) {
+                    existing.parentNode.removeChild(existing);
                 }
+                return;
+            }
+
+            const username = this.user.email.split('@')[0].toLowerCase();
+
+            if (existing) {
+                existing.href = `css/${username}.css`;
+            } else {
+                const link = document.createElement('link');
+                link.id = 'user-custom-css';
+                link.rel = 'stylesheet';
+                link.href = `css/${username}.css`;
+                document.head.appendChild(link);
             }
         }
     };

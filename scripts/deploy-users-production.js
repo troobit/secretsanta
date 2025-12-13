@@ -132,16 +132,6 @@ async function createFirestoreDocuments(pictureUrls) {
             console.error(`❌ Error creating doc for ${user.uid}:`, error.message);
         }
     }
-
-    // Create settings document
-    try {
-        await db.collection('settings').doc('config').set({
-            lockInTime: null
-        });
-        console.log('✅ Created Firestore doc: settings/config');
-    } catch (error) {
-        console.error('❌ Error creating settings doc:', error.message);
-    }
 }
 
 function cleanup() {

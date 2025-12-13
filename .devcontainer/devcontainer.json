@@ -1,0 +1,26 @@
+{
+    "name": "Dev",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/go:1": {
+            "version": "latest"
+        }
+    },
+    "forwardPorts": [
+        5000,
+        4000,
+        8080,
+        9099
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "golang.go"
+            ]
+        }
+    },
+    "postCreateCommand": "npm install -g pnpm firebase-tools && pnpm install && go install github.com/sammcj/mcp-devtools@latest",
+    "remoteUser": "node"
+}

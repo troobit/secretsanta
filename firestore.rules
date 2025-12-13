@@ -2,11 +2,6 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Helper function to check if system is locked
-    function isLocked() {
-      let settingsDoc = get(/databases/$(database)/documents/settings/config);
-      return settingsDoc.data.lockInTime != null;
-    }
     
     // Helper function to check if user is admin
     function isAdmin() {
@@ -21,20 +16,14 @@ service cloud.firestore {
       return affectedKeys.hasOnly(['wishlist']);
     }
     
-    // Users collection: authenticated users can read all, write only their own document
+    // Users collection: admins can read all, users can only read their own document
     match /users/{userId} {
-      allow read: if request.auth != null;
+      allow read: if request.auth != null && (isAdmin() || request.auth.uid == userId);
       allow create: if request.auth != null && request.auth.uid == userId;
       allow update: if request.auth != null 
                     && request.auth.uid == userId
-                    && (!isLocked() || onlyWishlistChanged());
+                    && onlyWishlistChanged();
       allow delete: if false;
-    }
-    
-    // Settings collection: authenticated users can read, admin can write
-    match /settings/{document=**} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && isAdmin();
     }
   }
 }

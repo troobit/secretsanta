@@ -1,5 +1,5 @@
 ---
-description: 'Instructions for writing Dart and Flutter code following the official recommendations.'
+description: 'Instructions for writing and editing DEVELOPMENT_PLAN.md'
 applyTo: 'docs/DEVELOPMENT_PLAN.md'
 ---
 
@@ -35,8 +35,14 @@ This document defines the required structure for `docs/DEVELOPMENT_PLAN.md` file
 
 **Task Numbering Convention:**
 - Use hierarchical numbering: `1.1`, `1.2`, `2.1`, `2.2.a`, `2.2.b`
-- Mark completed tasks with `[x]`
-- Mark incomplete tasks with `[ ]`
+- Mark completed tasks with `[x] (Worker: <id>)` — requires inline worker identifier
+- Mark in progress tasks with `[-] (Worker: <id>)` — locked by exactly one worker
+- Mark incomplete tasks with `[ ]` — unclaimed and available
+Concurrency & Ownership:
+- DEVELOPMENT_PLAN.md is the source of truth for status and ownership.
+- Workers MUST atomically switch `[ ]` → `[-] (Worker: <id>)` before starting; on completion switch to `[x] (Worker: <id>)`.
+- Multiple workers MAY operate concurrently on different tasks, but never on the same locked task.
+- Agents MUST NOT modify tasks claimed by others (`[-] (Worker: <id>)`), except REVIEWER marking pass/fail post-completion via Agent Log and adding `(FIX)` tasks.
 
 **Task Types:**
 - `(FIX)` - Bug fixes or corrections
@@ -66,6 +72,8 @@ This document defines the required structure for `docs/DEVELOPMENT_PLAN.md` file
 - **Status:** Complete, In Progress, Blocked, Pass, Fail
 - **Task Reference:** Use exact task numbers from plan
 - Keep entries concise but informative
+ - Include actor identifier where relevant, e.g., `Worker: <id>`
+ - Reviewer entries MUST include Pass/Fail and may add `(FIX)` tasks without altering locks
 
 ## Format Requirements
 
@@ -74,6 +82,8 @@ This document defines the required structure for `docs/DEVELOPMENT_PLAN.md` file
 3. **Hierarchy:** Maintain clear parent-child relationships in task structure
 4. **Validation:** Include checkpoints for critical path items
 5. **Traceability:** Agent log entries must reference specific task numbers
+6. **Locking:** Status markers enforce per-task locks; inline `(Worker: <id>)` is required on `[-]` and `[x]`
+7. **Concurrency:** Allow multiple tasks to progress independently; forbid concurrent edits to the same locked task
 
 ## Example Task Formats
 
@@ -94,3 +104,5 @@ Before marking a plan complete, verify:
 3. Critical validation checkpoints are included
 4. Agent log entries reference actual task numbers
 5. No duplicate task numbers exist
+6. All `[-]` and `[x]` entries include `(Worker: <id>)`
+7. Reviewer Pass/Fail entries exist for completed tasks or explicitly deferred

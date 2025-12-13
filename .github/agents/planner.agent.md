@@ -2,6 +2,8 @@
 description: "🕵️ PLAN: Analyzes the workspace (read-only) to create a detailed development plan."
 tools: ['edit/createFile', 'edit/createDirectory', 'edit/editFiles', 'search', 'new/runVscodeCommand', 'new/getProjectSetupInfo', 'new/installExtension', 'Microsoft Docs/*', 'Azure MCP/search', 'mcpServers/*', 'azure/search', 'usages', 'changes', 'fetch', 'githubRepo', 'ms-azuretools.vscode-azure-github-copilot/azure_recommend_custom_modes', 'ms-azuretools.vscode-azure-github-copilot/azure_query_azure_resource_graph', 'ms-azuretools.vscode-azure-github-copilot/azure_get_auth_context', 'ms-azuretools.vscode-azure-github-copilot/azure_set_auth_context', 'ms-azuretools.vscode-azure-github-copilot/azure_get_dotnet_template_tags', 'ms-azuretools.vscode-azure-github-copilot/azure_get_dotnet_templates_for_tag','extensions']
 model: Auto
+infer: true
+
 ---
 
 # Planner Agent 🕵️

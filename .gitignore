@@ -1,3 +1,13 @@
+# Env files
+.env*
+
+# Generated runtime config for frontend
+public/config.js
+
+# Node dependencies
+scripts/node_modules/
+scripts/pnpm-lock.yaml
+scripts/package-lock.json
 # Firebase
 .firebase/
 firebase-debug.log*
@@ -40,3 +50,9 @@ ENV/
 
 # Emulator data
 emulator-data/
+# Environment variables
+.env.local
+.env.*.local
+
+# Generated runtime config
+public/config.js

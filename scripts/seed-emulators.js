@@ -10,14 +10,24 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+
+const PROJECT_ID = process.env.FIREBASE_PROJECT_ID;
+const STORAGE_BUCKET = process.env.STORAGE_BUCKET;
+
+if (!PROJECT_ID || !STORAGE_BUCKET) {
+    console.error('FIREBASE_PROJECT_ID and STORAGE_BUCKET are required to seed emulators.');
+    process.exit(1);
+}
+
 // Initialize Firebase Admin with emulator settings
 process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8080';
 process.env.FIREBASE_AUTH_EMULATOR_HOST = 'localhost:9099';
 process.env.FIREBASE_STORAGE_EMULATOR_HOST = 'localhost:9199';
 
 admin.initializeApp({
-    projectId: 'secretsanta-melb',
-    storageBucket: 'secretsanta-melb.appspot.com'
+    projectId: PROJECT_ID,
+    storageBucket: STORAGE_BUCKET
 });
 
 const auth = admin.auth();
@@ -123,7 +133,7 @@ async function uploadProfilePictures() {
                 });
 
                 // Generate emulator URL
-                const storageUrl = `http://localhost:9199/v0/b/secretsanta-melb.appspot.com/o/${encodeURIComponent(destination)}?alt=media`;
+                const storageUrl = `http://localhost:9199/v0/b/${STORAGE_BUCKET}/o/${encodeURIComponent(destination)}?alt=media`;
                 pictureUrls[user.uid] = storageUrl;
 
                 console.log(`✅ Uploaded picture for: ${user.displayName}`);

@@ -10,10 +10,20 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+
+const PROJECT_ID = process.env.FIREBASE_PROJECT_ID;
+const STORAGE_BUCKET = process.env.STORAGE_BUCKET;
+
+if (!PROJECT_ID || !STORAGE_BUCKET) {
+    console.error('FIREBASE_PROJECT_ID and STORAGE_BUCKET are required for production deploy.');
+    process.exit(1);
+}
+
 // Initialize Firebase Admin for production (uses ADC from `firebase login`)
 admin.initializeApp({
-    projectId: 'secretsanta-melb',
-    storageBucket: 'secretsanta-melb.appspot.com'
+    projectId: PROJECT_ID,
+    storageBucket: STORAGE_BUCKET
 });
 
 const auth = admin.auth();
@@ -124,7 +134,7 @@ async function uploadProfilePictures() {
                 });
 
                 // Generate production Storage URL
-                const storageUrl = `https://firebasestorage.googleapis.com/v0/b/secretsanta-melb.appspot.com/o/${encodeURIComponent(destination)}?alt=media`;
+                const storageUrl = `https://firebasestorage.googleapis.com/v0/b/${STORAGE_BUCKET}/o/${encodeURIComponent(destination)}?alt=media`;
                 pictureUrls[user.uid] = storageUrl;
 
                 console.log(`✅ Uploaded picture for: ${user.displayName}`);

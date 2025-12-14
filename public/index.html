@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
     content="Secret Santa gift exchange - manage your Secret Santa participation, view your assigned giftee, and update your wishlist.">
-  <title>Sonorous Rd - Secret Santa</title>
+  <title id="site-title">Secret Santa</title>
 
   <!-- TailwindCSS via Play CDN for development -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -26,7 +26,7 @@
   <script src="/__/firebase/12.6.0/firebase-firestore-compat.js"></script>
   <script src="/__/firebase/12.6.0/firebase-functions-compat.js"></script>
   <script src="/__/firebase/12.6.0/firebase-storage-compat.js"></script>
-  <script src="/__/firebase/init.js?useEmulator=true"></script>
+  <script src="/config.js"></script>
   <script src="js/firebase-init.js"></script>
 
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -59,7 +59,7 @@
   <div id="app" x-data="secretSantaApp()" x-cloak>
     <div x-show="!user" class="min-h-screen flex items-center justify-center px-4">
       <div class="w-full max-w-md">
-        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Sonorous Road's Secret Santa</h1>
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800" id="hero-title">Secret Santa</h1>
 
         <!-- Login form -->
         <div class="bg-white rounded-lg shadow-md p-6">
@@ -309,6 +309,25 @@
   <script src="js/auth-component.js"></script>
   <script src="js/user-dashboard-component.js"></script>
   <script src="js/admin-dashboard-component.js"></script>
+
+  <script>
+    (function () {
+      const applyTitle = () => {
+        const cfg = window.RuntimeConfig;
+        if (!cfg) return;
+        const title = cfg.SITE_TITLE || 'Secret Santa';
+        const titleEl = document.getElementById('site-title');
+        const heroEl = document.getElementById('hero-title');
+        if (titleEl) titleEl.textContent = title;
+        if (heroEl) heroEl.textContent = title;
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyTitle);
+      } else {
+        applyTitle();
+      }
+    })();
+  </script>
 
   <style>
     [x-cloak] {

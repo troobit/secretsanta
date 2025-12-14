@@ -50,7 +50,8 @@ window.secretSantaApp = function secretSantaApp() {
             this.loginForm.error = '';
             this.loginForm.loading = true;
 
-            const email = this.loginForm.name.trim().toLowerCase() + '@rtob.dev';
+            const domain = (window.RuntimeConfig && window.RuntimeConfig.LOGIN_EMAIL_DOMAIN) ? window.RuntimeConfig.LOGIN_EMAIL_DOMAIN : 'localhost.test';
+            const email = this.loginForm.name.trim().toLowerCase() + '@' + domain;
             const password = this.loginForm.password;
 
             if (window.firebaseAuth) {

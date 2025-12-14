@@ -250,7 +250,7 @@
                         <template x-if="usr.conflicts?.length === 0">
                           <span class="text-sm text-gray-500">None</span>
                         </template>
-                        <template x-for="cid in usr.conflicts">
+                        <template x-for="cid in usr.conflicts" :key="cid">
                           <span
                             class="inline-flex items-center gap-2 text-sm bg-gray-100 text-gray-800 px-2 py-1 rounded">
                             <span x-text="getUserNameById(cid)"></span>
@@ -266,7 +266,7 @@
                       <select class="border border-gray-300 rounded px-2 py-1 text-sm"
                         x-model="usr._selectedConflictCandidate">
                         <option value="">Select user…</option>
-                        <template x-for="candidate in allUsers">
+                        <template x-for="candidate in allUsers" :key="candidate.id">
                           <option :value="candidate.id" x-show="candidate.id !== usr.id" x-text="candidate.name">
                           </option>
                         </template>

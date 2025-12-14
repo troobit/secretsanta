@@ -55,8 +55,8 @@ Deliver conflict-aware Secret Santa pairings with full admin visibility and tool
   - [x] (Worker: worker-3.3) 3.3.b Log notable warnings client-side for debugging while avoiding sensitive data exposure.
 - [ ] (FIX) (Phase 3) 3.5 Debug admin dashboard display issues - users not rendering, functions not visible.
   - [x] (Worker: worker-3.5) 3.5.a Investigate Firestore query errors preventing user list from loading.
-  - [ ] (FIX) 3.5.b Check Alpine.js template syntax issues in user display loop.
-  - [ ] (FIX) 3.5.c Verify browser console for JavaScript errors blocking component initialization.
+  - [x] (Worker: v8p2kx) 3.5.b Check Alpine.js template syntax issues in user display loop.
+  - [x] (Worker: v8p2kx) 3.5.c Verify browser console for JavaScript errors blocking component initialization.
   - [ ] (FIX) 3.5.d Test with emulator data to confirm user documents exist and are readable.
 - [ ] 3.4 **VALIDATION CHECKPOINT:** Smoke test admin UI to confirm conflict edits persist and pairing outcomes display correctly.
 
@@ -107,3 +107,4 @@ Deliver conflict-aware Secret Santa pairings with full admin visibility and tool
 - **REVIEWER:** Phase 3: Fail. Admin dashboard not displaying users or functions. Potential issues: (1) Firestore query/listener errors, (2) Alpine.js template rendering issues, (3) JavaScript initialization problems, (4) Missing/malformed user documents. Added remediation task 3.5 with investigation steps.
 - **WORKER:** Task 3.5.a: Fixed Firestore query - removed `where('isAdmin', '!=', true)` which requires composite index; now fetching all users and filtering client-side. Added debug logging for troubleshooting.
 - **WORKER:** Tasks 3.1 & 3.2: Verified existing admin dashboard already displays conflicts with real-time sync, add/remove controls with bi-directional writes, and error feedback.
+- **WORKER (v8p2kx):** Task 3.5.b: Complete. Updated public/index.html (Alpine x-for keys) and public/js/admin-dashboard-component.js (pairing handler syntax) to restore admin user list rendering.

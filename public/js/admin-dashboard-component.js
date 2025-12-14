@@ -3,10 +3,12 @@ window.adminDashboard = function adminDashboard() {
         loading: true,
         error: '',
         allUsers: [],
+        usersById: {},
         isProcessing: false,
         showConfirmation: false,
         pairingResult: null,
         unsubscribeUsers: null,
+        conflictActionFeedback: '',
 
         async init() {
             // Wait for Firebase to be initialized
@@ -27,8 +29,15 @@ window.adminDashboard = function adminDashboard() {
                     .onSnapshot(
                         (snapshot) => {
                             this.allUsers = [];
+                            this.usersById = {};
                             snapshot.forEach((doc) => {
-                                this.allUsers.push({ id: doc.id, ...doc.data() });
+                                const data = { id: doc.id, ...doc.data() };
+                                // Normalize conflicts
+                                if (!Array.isArray(data.conflicts)) {
+                                    data.conflicts = [];
+                                }
+                                this.allUsers.push(data);
+                                this.usersById[data.id] = data;
                             });
                             this.loading = false;
                         },
@@ -78,6 +87,50 @@ window.adminDashboard = function adminDashboard() {
                 };
             } finally {
                 this.isProcessing = false;
+            }
+        },
+
+        getUserNameById(id) {
+            return this.usersById[id]?.name || id;
+        },
+
+        async addConflict(userId, otherUserId) {
+            this.conflictActionFeedback = '';
+            if (!userId || !otherUserId || userId === otherUserId) {
+                this.conflictActionFeedback = 'Invalid selection.';
+                return;
+            }
+            try {
+                const batch = window.firebaseFirestore.batch();
+                const userRef = window.firebaseFirestore.collection('users').doc(userId);
+                const otherRef = window.firebaseFirestore.collection('users').doc(otherUserId);
+
+                batch.update(userRef, { conflicts: firebase.firestore.FieldValue.arrayUnion(otherUserId) });
+                batch.update(otherRef, { conflicts: firebase.firestore.FieldValue.arrayUnion(userId) });
+
+                await batch.commit();
+                this.conflictActionFeedback = 'Conflict added.';
+            } catch (error) {
+                console.error('Add conflict error:', error);
+                this.conflictActionFeedback = error?.message || 'Failed to add conflict';
+            }
+        },
+
+        async removeConflict(userId, otherUserId) {
+            this.conflictActionFeedback = '';
+            try {
+                const batch = window.firebaseFirestore.batch();
+                const userRef = window.firebaseFirestore.collection('users').doc(userId);
+                const otherRef = window.firebaseFirestore.collection('users').doc(otherUserId);
+
+                batch.update(userRef, { conflicts: firebase.firestore.FieldValue.arrayRemove(otherUserId) });
+                batch.update(otherRef, { conflicts: firebase.firestore.FieldValue.arrayRemove(userId) });
+
+                await batch.commit();
+                this.conflictActionFeedback = 'Conflict removed.';
+            } catch (error) {
+                console.error('Remove conflict error:', error);
+                this.conflictActionFeedback = error?.message || 'Failed to remove conflict';
             }
         },
 

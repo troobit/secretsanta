@@ -56,10 +56,28 @@ def triggerSecretSantaPairing(req: https_fn.CallableRequest) -> dict:
 
         users_to_pair = []
         for user in users_snapshot:
+            user_data = user.to_dict()
+            raw_conflicts = user_data.get('conflicts') if user_data else []
+            if not isinstance(raw_conflicts, list):
+                raw_conflicts = []
+            normalized_conflicts = [c for c in raw_conflicts if isinstance(c, str)]
             users_to_pair.append({
                 'id': user.id,
-                'name': user.to_dict().get('name', 'Unknown')
+                'name': user_data.get('name', 'Unknown') if user_data else 'Unknown',
+                'conflicts': normalized_conflicts
             })
+
+        conflict_lookup = {}
+        for user in users_to_pair:
+            conflict_lookup[user['id']] = set()
+
+        for user in users_to_pair:
+            giver_id = user['id']
+            for conflict_id in user['conflicts']:
+                conflict_lookup[giver_id].add(conflict_id)
+                if conflict_id not in conflict_lookup:
+                    conflict_lookup[conflict_id] = set()
+                conflict_lookup[conflict_id].add(giver_id)
 
         # Validate minimum user count (need at least 3 for meaningful pairing)
         if len(users_to_pair) < 3:

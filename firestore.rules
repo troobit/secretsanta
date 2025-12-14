@@ -16,13 +16,48 @@ service cloud.firestore {
       return affectedKeys.hasOnly(['wishlist']);
     }
     
+    // Helper function to validate conflicts field
+    // Ensures conflicts is either missing, or an array of strings
+    function hasValidConflicts() {
+      // Allow missing conflicts field
+      return !request.resource.data.keys().hasAny(['conflicts']) ||
+             // Allow empty array
+             (request.resource.data.conflicts is list &&
+              request.resource.data.conflicts.size() == 0) ||
+             // For non-empty arrays, validate all elements are strings
+             (request.resource.data.conflicts is list &&
+              request.resource.data.conflicts.size() > 0 &&
+              isAllStrings(request.resource.data.conflicts));
+    }
+    
+    // Helper function to validate all array elements are strings
+    function isAllStrings(arr) {
+      // Check each element in the array is a string
+      // Firestore rules require checking against a predicate for all elements
+      return arr.size() > 0 &&
+             arr[0] is string &&
+             (arr.size() == 1 || isAllStringsRecursive(arr, 1));
+    }
+    
+    // Recursive helper to check remaining elements
+    function isAllStringsRecursive(arr, index) {
+      return index >= arr.size() ||
+             (arr[index] is string && isAllStringsRecursive(arr, index + 1));
+    }
+    
+    // Helper function to check if only conflicts field is being updated (admin only)
+    function onlyConflictsChanged() {
+      let affectedKeys = request.resource.data.diff(resource.data).affectedKeys();
+      return affectedKeys.hasOnly(['conflicts']);
+    }
+    
     // Users collection: admins can read all, users can only read their own document
     match /users/{userId} {
       allow read: if request.auth != null && (isAdmin() || request.auth.uid == userId);
-      allow create: if request.auth != null && request.auth.uid == userId;
-      allow update: if request.auth != null 
-                    && request.auth.uid == userId
-                    && onlyWishlistChanged();
+      allow create: if request.auth != null && request.auth.uid == userId && hasValidConflicts();
+      allow update: if request.auth != null && hasValidConflicts() &&
+                    ((request.auth.uid == userId && onlyWishlistChanged()) ||
+                     (isAdmin() && onlyConflictsChanged()));
       allow delete: if false;
     }
   }

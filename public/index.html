@@ -215,10 +215,41 @@
                     <p class="text-sm font-medium mt-1" :class="usr.gifteeId ? 'text-green-600' : 'text-gray-500'">
                       Pairing: <span x-text="usr.gifteeId ? 'Assigned' : 'Pending'"></span>
                     </p>
+
+                    <!-- Conflicts Display -->
+                    <div class="mt-3">
+                      <p class="text-sm font-medium text-gray-700">Conflicts:</p>
+                      <div class="flex flex-wrap gap-2 mt-2">
+                        <template x-if="usr.conflicts?.length === 0">
+                          <span class="text-sm text-gray-500">None</span>
+                        </template>
+                        <template x-for="cid in usr.conflicts">
+                          <span class="inline-flex items-center gap-2 text-sm bg-gray-100 text-gray-800 px-2 py-1 rounded">
+                            <span x-text="getUserNameById(cid)"></span>
+                            <button class="text-red-600 hover:text-red-800" @click="removeConflict(usr.id, cid)">✕</button>
+                          </span>
+                        </template>
+                      </div>
+                    </div>
+
+                    <!-- Add Conflict -->
+                    <div class="mt-3 flex items-center gap-2">
+                      <select class="border border-gray-300 rounded px-2 py-1 text-sm"
+                              x-model="usr._selectedConflictCandidate">
+                        <option value="">Select user…</option>
+                        <template x-for="candidate in allUsers">
+                          <option :value="candidate.id" x-show="candidate.id !== usr.id"
+                                  x-text="candidate.name"></option>
+                        </template>
+                      </select>
+                      <button class="text-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded"
+                              @click="addConflict(usr.id, usr._selectedConflictCandidate)">Add Conflict</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </template>
+            <p class="text-sm mt-2" x-show="conflictActionFeedback" x-text="conflictActionFeedback"></p>
           </div>
         </div>
         <div x-show="showConfirmation" x-cloak

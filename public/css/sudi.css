@@ -1,0 +1,5 @@
+/* Default Theme */
+#page-body {
+    background-color: #f700ff;
+    /* Tailwind bg-gray-50 equivalent */
+}

@@ -9,7 +9,10 @@
       "wishlist": "Books, coffee, socks",
       "profilePicUrl": "",
       "gifteeId": null,
-      "isAdmin": false
+      "isAdmin": false,
+      "conflicts": [
+        "mary"
+      ]
     }
   },
   {
@@ -22,7 +25,8 @@
       "wishlist": "Tea, candles, blankets",
       "profilePicUrl": "",
       "gifteeId": null,
-      "isAdmin": false
+      "isAdmin": false,
+      "conflicts": []
     }
   },
   {
@@ -35,7 +39,10 @@
       "wishlist": "Whiskey, books, board games",
       "profilePicUrl": "",
       "gifteeId": null,
-      "isAdmin": false
+      "isAdmin": false,
+      "conflicts": [
+        "mary"
+      ]
     }
   },
   {

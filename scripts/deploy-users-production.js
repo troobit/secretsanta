@@ -26,6 +26,35 @@ const USERS = require('./users.json');
 // Placeholder image URL for downloading
 const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/150/4F46E5/FFFFFF?text=';
 
+function normalizeConflicts(user) {
+    const conflicts = Array.isArray(user?.userData?.conflicts)
+        ? user.userData.conflicts
+        : [];
+
+    const filtered = conflicts.filter((uid) => typeof uid === 'string' && uid !== user.uid);
+    return Array.from(new Set(filtered));
+}
+
+function buildMutualConflicts(users) {
+    const conflictSets = new Map();
+
+    users.forEach((user) => {
+        conflictSets.set(user.uid, new Set(normalizeConflicts(user)));
+    });
+
+    for (const [uid, conflicts] of conflictSets.entries()) {
+        for (const conflictedUid of conflicts) {
+            if (!conflictSets.has(conflictedUid)) {
+                conflictSets.set(conflictedUid, new Set([uid]));
+            } else {
+                conflictSets.get(conflictedUid).add(uid);
+            }
+        }
+    }
+
+    return conflictSets;
+}
+
 async function downloadPlaceholderImage(name, filename) {
     return new Promise((resolve, reject) => {
         const url = `${PLACEHOLDER_IMAGE_URL}${encodeURIComponent(name)}`;
@@ -113,13 +142,18 @@ async function uploadProfilePictures() {
     return pictureUrls;
 }
 
-async function createFirestoreDocuments(pictureUrls) {
+async function createFirestoreDocuments(pictureUrls, conflictSets) {
     console.log('\n🗄️  Creating Firestore documents...');
 
     // Create user documents
     for (const user of USERS) {
         try {
             const userData = { ...user.userData };
+
+            if (!userData.isAdmin) {
+                const conflicts = conflictSets?.get(user.uid) || new Set();
+                userData.conflicts = Array.from(conflicts);
+            }
 
             // Add profile picture URL for non-admin users
             if (!user.userData.isAdmin && pictureUrls[user.uid]) {
@@ -152,8 +186,9 @@ async function main() {
         // Step 2: Upload profile pictures
         const pictureUrls = await uploadProfilePictures();
 
-        // Step 3: Create Firestore documents
-        await createFirestoreDocuments(pictureUrls);
+        // Step 3: Normalize conflicts and create Firestore documents
+        const conflictSets = buildMutualConflicts(USERS);
+        await createFirestoreDocuments(pictureUrls, conflictSets);
 
         console.log('\n✨ Production deployment completed successfully!\n');
         console.log('Users deployed to Firebase. Check the Firebase Console to verify.');

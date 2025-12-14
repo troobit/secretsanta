@@ -95,3 +95,94 @@ users/[userId]
 
 See `tasks.md` for detailed execution log and validation results.
 
+---
+
+## Troubleshooting Guide
+
+### Unsolvable Pairing Scenarios
+
+When the pairing algorithm cannot find a valid solution, you'll receive an error message in the admin dashboard. This section helps diagnose and resolve common issues.
+
+#### Common Causes
+
+**1. User Conflicted with All Others**
+- **Error**: "User 'Name' (userId) is conflicted with all other participants and cannot be paired"
+- **Resolution**: Remove at least one conflict from this user so they have potential giftees
+- **How**: Use the conflict management UI to remove conflicts one at a time until resolved
+
+**2. Insufficient Available Pairings**
+- **Error**: "Unable to generate valid pairings with current conflict constraints. Participants: X. Users with conflicts: ..."
+- **Cause**: Too many conflicts create impossible constraint combinations
+- **Resolution**: 
+  - Review the conflict list shown in the error message
+  - Remove some conflicts to create more pairing possibilities
+  - Consider adding more participants to increase pairing options
+
+**3. Circular Conflict Chains**
+- **Symptom**: Pairing fails even when no single user is fully conflicted
+- **Example**: A conflicts with B, B with C, C with D, D with A (makes circular assignment impossible)
+- **Resolution**:
+  - Identify the conflict chain by reviewing each user's conflicts
+  - Break the chain by removing at least one conflict link
+  - Test pairing again
+
+#### Performance Considerations
+
+**Maximum Conflict Density**
+- **Recommended**: Each user should conflict with < 30% of other participants
+- **Limit**: Firestore rules validate up to 10 conflicts per user
+- **Performance**: Higher conflict density increases backtracking time
+
+**Participant Count**
+- **Optimal**: 5-50 participants
+- **Minimum**: 3 non-admin users required
+- **Large Groups**: 50+ users may experience slower pairing with high conflict density
+
+#### Troubleshooting Steps
+
+1. **Check Error Message**
+   - Note which users are mentioned in the error
+   - Look for patterns (e.g., all errors mention the same user)
+
+2. **Review Conflicts in Admin Dashboard**
+   - Each user card shows their current conflicts
+   - Identify users with many conflicts (> 3)
+
+3. **Remove Strategic Conflicts**
+   - Start with users who have the most conflicts
+   - Remove one conflict at a time
+   - Test pairing after each removal
+
+4. **Test in Emulator First**
+   - Use emulator to test conflict configurations safely
+   - Verify pairing works before deploying to production
+
+5. **Verify Symmetric Conflicts**
+   - System automatically makes conflicts bi-directional
+   - If you see asymmetric warnings, they're informational only
+   - The system has already reconciled them
+
+#### Edge Cases
+
+**All Users Want Same Gift**
+- Not a conflict constraint issue
+- Pairing will succeed; wishlist preferences are separate
+
+**User Added Mid-Season**
+- Add user, set conflicts if needed
+- Re-trigger pairing to include new user
+- Previous assignments may change
+
+**User Removed Mid-Season**
+- Remove their conflicts first
+- Delete their user document
+- Re-trigger pairing for remaining users
+
+#### Getting Help
+
+If issues persist after following this guide:
+1. Export conflict data (screenshot admin dashboard)
+2. Note exact error message
+3. Document steps attempted
+4. Contact system administrator with details
+

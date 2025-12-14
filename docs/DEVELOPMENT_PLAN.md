@@ -53,17 +53,22 @@ Deliver conflict-aware Secret Santa pairings with full admin visibility and tool
 - [x] (Worker: worker-3.3) 3.3 (ENHANCE) Upgrade pairing result presentation.
   - [x] (Worker: worker-3.3) 3.3.a Render pairing status, pairingsCount, warnings, and errors with clear styling.
   - [x] (Worker: worker-3.3) 3.3.b Log notable warnings client-side for debugging while avoiding sensitive data exposure.
+- [ ] (FIX) (Phase 3) 3.5 Debug admin dashboard display issues - users not rendering, functions not visible.
+  - [x] (Worker: worker-3.5) 3.5.a Investigate Firestore query errors preventing user list from loading.
+  - [ ] (FIX) 3.5.b Check Alpine.js template syntax issues in user display loop.
+  - [ ] (FIX) 3.5.c Verify browser console for JavaScript errors blocking component initialization.
+  - [ ] (FIX) 3.5.d Test with emulator data to confirm user documents exist and are readable.
 - [ ] 3.4 **VALIDATION CHECKPOINT:** Smoke test admin UI to confirm conflict edits persist and pairing outcomes display correctly.
 
 ### Phase 4: Testing & Quality Assurance
-- [ ] 4.1 (ENHANCE) Build unit test coverage for pairing logic in functions/test_main.py.
-  - [ ] 4.1.a Verify self-assignment prevention across varied participant counts.
-  - [ ] 4.1.b Validate bilateral conflict enforcement and absence of forbidden pairs.
-  - [ ] 4.1.c Confirm backtracking success by solving multi-path scenarios.
-  - [ ] 4.1.d Assert unsolvable graphs return structured errors without partial writes.
-- [ ] 4.2 (ENHANCE) Document edge cases and troubleshooting guidance for admins.
-  - [ ] 4.2.a Extend docs/PAIRING_CONSTRAINTS.md with resolution steps for unsolvable runs.
-  - [ ] 4.2.b Note performance considerations and recommended maximum conflict density.
+- [x] (Worker: worker-2.5) 4.1 (ENHANCE) Build unit test coverage for pairing logic in functions/test_main.py.
+  - [x] (Worker: worker-2.5) 4.1.a Verify self-assignment prevention across varied participant counts.
+  - [x] (Worker: worker-2.5) 4.1.b Validate bilateral conflict enforcement and absence of forbidden pairs.
+  - [x] (Worker: worker-2.5) 4.1.c Confirm backtracking success by solving multi-path scenarios.
+  - [x] (Worker: worker-2.5) 4.1.d Assert unsolvable graphs return structured errors without partial writes.
+- [x] (Worker: worker-4.2) 4.2 (ENHANCE) Document edge cases and troubleshooting guidance for admins.
+  - [x] (Worker: worker-4.2) 4.2.a Extend docs/PAIRING_CONSTRAINTS.md with resolution steps for unsolvable runs.
+  - [x] (Worker: worker-4.2) 4.2.b Note performance considerations and recommended maximum conflict density.
 - [ ] 4.3 **VALIDATION CHECKPOINT:** Execute manual end-to-end emulator run covering success and failure paths, recording outcomes.
 
 ## Success Criteria (Measurable)
@@ -98,4 +103,7 @@ Deliver conflict-aware Secret Santa pairings with full admin visibility and tool
 - **WORKER:** Task 2.5: Created test_main.py with 10 comprehensive unit tests covering solvable/unsolvable conflicts, bilateral/asymmetric conflicts, self-assignment prevention, auth checks, and edge cases.
 - **WORKER:** Tasks 3.1 & 3.2: Verified admin dashboard already has complete conflicts management UI with real-time Firestore sync, add/remove controls with bi-directional writes, and error feedback.
 - **WORKER:** Task 3.3: Enhanced pairing result display with pairingsCount, timestamp, warnings section with yellow styling, and client-side console logging for debugging.
+- **WORKER:** Task 4.2: Added comprehensive troubleshooting guide to PAIRING_CONSTRAINTS.md with resolution steps for unsolvable scenarios, performance guidelines (< 30% conflict density), and edge case handling.
+- **REVIEWER:** Phase 3: Fail. Admin dashboard not displaying users or functions. Potential issues: (1) Firestore query/listener errors, (2) Alpine.js template rendering issues, (3) JavaScript initialization problems, (4) Missing/malformed user documents. Added remediation task 3.5 with investigation steps.
+- **WORKER:** Task 3.5.a: Fixed Firestore query - removed `where('isAdmin', '!=', true)` which requires composite index; now fetching all users and filtering client-side. Added debug logging for troubleshooting.
 - **WORKER:** Tasks 3.1 & 3.2: Verified existing admin dashboard already displays conflicts with real-time sync, add/remove controls with bi-directional writes, and error feedback.

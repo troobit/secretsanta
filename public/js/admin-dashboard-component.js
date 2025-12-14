@@ -21,17 +21,27 @@ window.adminDashboard = function adminDashboard() {
         },
 
         async initializeDashboard() {
+            console.log('Initializing admin dashboard...');
             try {
                 // Set up real-time listener for all non-admin users
+                // Note: where('isAdmin', '!=', true) may require composite index
+                // Alternative: fetch all users and filter client-side
                 this.unsubscribeUsers = window.firebaseFirestore
                     .collection('users')
-                    .where('isAdmin', '!=', true)
                     .onSnapshot(
                         (snapshot) => {
+                            console.log('Users snapshot received, doc count:', snapshot.size);
                             this.allUsers = [];
                             this.usersById = {};
                             snapshot.forEach((doc) => {
                                 const data = { id: doc.id, ...doc.data() };
+                                console.log('Processing user:', data.id, 'isAdmin:', data.isAdmin);
+
+                                // Filter out admin users client-side
+                                if (data.isAdmin === true) {
+                                    return;
+                                }
+
                                 // Normalize conflicts
                                 if (!Array.isArray(data.conflicts)) {
                                     data.conflicts = [];
@@ -39,17 +49,20 @@ window.adminDashboard = function adminDashboard() {
                                 this.allUsers.push(data);
                                 this.usersById[data.id] = data;
                             });
+                            console.log('Filtered users count:', this.allUsers.length);
                             this.loading = false;
                         },
                         (error) => {
                             console.error('Firestore users snapshot error:', error);
+                            console.error('Error code:', error.code);
                             console.error('Error message:', error.message);
                             this.error = 'Failed to load users: ' + error.message;
                             this.loading = false;
                         }
                     );
             } catch (error) {
-                this.error = 'Failed to initialize admin dashboard';
+                console.error('Dashboard init error:', error);
+                this.error = 'Failed to initialize admin dashboard: ' + error.message;
                 this.loading = false;
             }
         },

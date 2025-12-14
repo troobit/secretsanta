@@ -1,109 +1,76 @@
-# Development Plan: Secret Santa Pairing Constraints
+# Development Plan: Secret Santa Environment Variables
 
 ## Project Goal
-Deliver conflict-aware Secret Santa pairings with full admin visibility and tooling for managing pairing constraints.
+Enable environment-based configuration for the Secret Santa app (titles, deployment targets, Firebase settings) while preventing accidental exposure of sensitive values in the repository.
 
 ## Requirements & Constraints
-- Enforce self-assignment prevention and bilateral conflict avoidance during pairing runs.
-- Persist conflicts as part of each Firestore user document and ensure seeding scripts populate representative data.
-- Expose admin UI flows to view, add, and remove conflicts with real-time updates.
-- Return structured pairing results including counts, warnings, and actionable error messages on failure.
-- Provide automated and manual validation for solvable and unsolvable constraint graphs.
-- Maintain performance for typical participant counts (<= 50 users) without timeouts in Cloud Functions.
+- Keep Firebase credentials and project identifiers out of version control; rely on env/config values per environment.
+- Support environment-specific branding titles (e.g., Mantel Road, Barlyn Rd) without code changes.
+- Work across local emulators, staging, and production deployments.
+- Provide a repeatable way to inject runtime config into the frontend without baking secrets into static assets.
+- Document setup steps for collaborators to run locally with minimal friction.
 
 ## Plan
 
-### Phase 0: Planning
-- [x] (Worker: planner) 0.1 (ENHANCE) Publish development plan for constraint-based pairing scope.
+### Phase 1: Discovery & Inventory
+- [x] (Worker: copilot) 1.1 Catalogue current configuration touchpoints (frontend `firebase/init.js`, admin function init, deploy scripts) and list required env vars (titles, Firebase API/config, deployment targets).
+- [x] (Worker: copilot) 1.2 Identify existing secret exposures in the repo (Firebase config, project IDs, API keys) and determine mitigation (runtime config, Firebase config:set, .env.gitignore). **VALIDATION CHECKPOINT:** verify inventory covers frontend, functions, and scripts.
 
-### Phase 1: Data Model & Seed Updates
- - [x] (Worker: 7c2e9a) 1.1 (ENHANCE) Introduce conflicts array to Firestore user model across docs and runtime defaults.
-  - [x] 1.1.a (Worker: 1.1.a) Update Firestore data model documentation and any schema helpers to include conflicts.
-  - [x] 1.1.b (Worker: 1.1.b) Ensure security rules tolerate missing or empty conflicts arrays safely.
-  - [x] (Worker: 1.1.c) 1.1.c Fix hasValidConflicts() in firestore.rules to validate all array elements are strings, not just first element.
-  - [x] (Worker: 1.1.d) 1.1.d Fix recursive function error in firestore.rules - replaced with non-recursive validation of first 10 elements.
-- [x] (Worker: 7c2e9a) 1.2 (ENHANCE) Refresh seeding assets with representative conflict data.
-  - [x] (Worker: 1.2.a) Extend scripts/seed-emulators.js to write conflicts arrays and handle mutual entries.
-  - [x] (Worker: 1.2.b) Update scripts/users.json (and examples) with sample conflicts for admin testing.
-- [x] (Worker: 1.3) 1.3 **VALIDATION CHECKPOINT:** Confirm emulator seeding produces conflicts entries for all non-admin users without runtime errors.
+### Phase 2: Environment Strategy Design
+- [x] (Worker: copilot) 2.1 Define environment matrix (local emulator, staging, production) with required variables: site title, Firebase config bundle, deploy target identifiers.
 
-### Phase 2: Cloud Function Implementation
-- [x] (Worker: worker-2.1) 2.1 (ENHANCE) Load conflicts data in functions/main.py triggerSecretSantaPairing.
-  - [x] (Worker: worker-2.1) 2.1.a Normalize missing conflicts fields to empty arrays at load time.
-  - [x] (Worker: worker-2.1) 2.1.b Build in-memory conflict lookup supporting symmetric checks.
-- [x] (Worker: worker-2.2) 2.2 (ENHANCE) Validate constraint graph before pairing begins.
-  - [x] (Worker: worker-2.2) 2.2.a Detect unsatisfied prerequisites (e.g., single participant, fully conflicted users) and prepare descriptive errors.
-  - [x] (Worker: worker-2.2) 2.2.b Guard against asymmetric conflict declarations by reconciling both directions.
-- [x] (Worker: worker-2.3) 2.3 (ENHANCE) Implement backtracking pairing algorithm with constraint awareness.
-  - [x] (Worker: worker-2.3) 2.3.a Shuffle candidate giftees deterministically (seeded randomness) for fairness and reproducibility.
-  - [x] (Worker: worker-2.3) 2.3.b Backtrack on conflict or self-assignment violations and retry until solution or exhaustion.
-- [x] (Worker: worker-2.4) 2.4 (ENHANCE) Emit structured pairing results and error details.
-  - [x] (Worker: worker-2.4) 2.4.a Populate pairingsCount, timestamp, warnings, and errors in function response.
-  - [x] (Worker: worker-2.4) 2.4.b Surface unsolvable constraint details in error payload for UI display.
-- [x] (Worker: worker-2.5) 2.5 **VALIDATION CHECKPOINT:** Achieve green automated tests covering solvable and unsolvable conflict scenarios for triggerSecretSantaPairing.
+#### Environment Matrix (Required Vars)
 
-### Phase 3: Admin Dashboard Enhancements
-- [x] (Worker: worker-3.1) 3.1 (ENHANCE) Display current conflicts within admin dashboard.
-  - [x] (Worker: worker-3.1) 3.1.a Add UI section summarizing conflicts per user with clear labels.
-  - [x] (Worker: worker-3.1) 3.1.b Wire real-time Firestore listeners to keep conflict data synchronized.
-- [x] (Worker: worker-3.2) 3.2 (ENHANCE) Allow admins to manage conflicts interactively.
-  - [x] (Worker: worker-3.2) 3.2.a Implement add-conflict flow ensuring bi-directional writes and validation of user ids.
-  - [x] (Worker: worker-3.2) 3.2.b Provide remove-conflict controls with confirmation and symmetric cleanup.
-  - [x] (Worker: worker-3.2) 3.2.c Handle Firestore write errors and display lightweight feedback.
-- [x] (Worker: worker-3.3) 3.3 (ENHANCE) Upgrade pairing result presentation.
-  - [x] (Worker: worker-3.3) 3.3.a Render pairing status, pairingsCount, warnings, and errors with clear styling.
-  - [x] (Worker: worker-3.3) 3.3.b Log notable warnings client-side for debugging while avoiding sensitive data exposure.
-- [ ] (FIX) (Phase 3) 3.5 Debug admin dashboard display issues - users not rendering, functions not visible.
-  - [x] (Worker: worker-3.5) 3.5.a Investigate Firestore query errors preventing user list from loading.
-  - [ ] (FIX) 3.5.b Check Alpine.js template syntax issues in user display loop.
-  - [ ] (FIX) 3.5.c Verify browser console for JavaScript errors blocking component initialization.
-  - [ ] (FIX) 3.5.d Test with emulator data to confirm user documents exist and are readable.
-- [ ] 3.4 **VALIDATION CHECKPOINT:** Smoke test admin UI to confirm conflict edits persist and pairing outcomes display correctly.
+- Local (Emulators)
+  - `SITE_TITLE`: non-sensitive title for local (e.g., "Secret Santa – Local").
+  - `FIREBASE_CONFIG`: bundle with `apiKey`, `authDomain`, `projectId`, `storageBucket`, `messagingSenderId`, `appId`.
+  - `USE_EMULATORS`: `true` (frontend/services switch to emulator hosts/ports).
+  - `FIREBASE_TARGET_ALIAS`: `local` or dev alias used by scripts.
 
-### Phase 4: Testing & Quality Assurance
-- [x] (Worker: worker-2.5) 4.1 (ENHANCE) Build unit test coverage for pairing logic in functions/test_main.py.
-  - [x] (Worker: worker-2.5) 4.1.a Verify self-assignment prevention across varied participant counts.
-  - [x] (Worker: worker-2.5) 4.1.b Validate bilateral conflict enforcement and absence of forbidden pairs.
-  - [x] (Worker: worker-2.5) 4.1.c Confirm backtracking success by solving multi-path scenarios.
-  - [x] (Worker: worker-2.5) 4.1.d Assert unsolvable graphs return structured errors without partial writes.
-- [x] (Worker: worker-4.2) 4.2 (ENHANCE) Document edge cases and troubleshooting guidance for admins.
-  - [x] (Worker: worker-4.2) 4.2.a Extend docs/PAIRING_CONSTRAINTS.md with resolution steps for unsolvable runs.
-  - [x] (Worker: worker-4.2) 4.2.b Note performance considerations and recommended maximum conflict density.
-- [ ] 4.3 **VALIDATION CHECKPOINT:** Execute manual end-to-end emulator run covering success and failure paths, recording outcomes.
+- Staging
+  - `SITE_TITLE`: environment-specific title (e.g., "Secret Santa – Staging").
+  - `FIREBASE_CONFIG`: staging project bundle (same keys as above).
+  - `FIREBASE_TARGET_ALIAS`: `staging` (deploy/select this alias).
+
+- Production
+  - `SITE_TITLE`: brand title (e.g., "Mantel Road" / "Barlyn Rd").
+  - `FIREBASE_CONFIG`: production project bundle (same keys as above).
+  - `FIREBASE_TARGET_ALIAS`: `prod` (deploy/select this alias).
+
+Notes
+- `LOGIN_EMAIL_DOMAIN` is configurable per environment but not strictly required for 2.1. Include it in `.env` when implementing 3.x.
+- `FIREBASE_PROJECT_ID` and `STORAGE_BUCKET` can be derived from `FIREBASE_CONFIG` and are used by scripts/functions if needed.
+
+- [x] (Worker: b6e9d2) 2.2 Choose runtime config delivery for frontend (e.g., generated `config.js` from env on deploy or Firebase hosting config) ensuring nothing sensitive is committed. **VALIDATION CHECKPOINT:** confirm strategy supports per-environment titles without rebuilding core app.
+- [x] (Worker: b6e9d2) 2.3 Specify storage of secrets using provider tooling (Firebase `functions:config:set` or hosting config) and local `.env.local` with `.env.example` for onboarding.
+
+### Phase 3: Implementation
+- [x] 3.1 Add `.env.example` and gitignore rules for `.env*`; document required keys and default values for emulators.
+- [x] 3.2 Implement build/deploy script to emit `public/config.js` (or equivalent) from env values for hosting; reference it in `index.html` and components for titles and Firebase init params.
+- [x] 3.3 Update frontend to read site titles and Firebase config from generated runtime config (no hardcoded IDs/API keys); ensure emulator toggles still function.
+- [x] 3.4 Integrate deployment targets: parameterize Firebase project selection in scripts (seed/deploy) via env, and document `firebase use` / target aliases.
+- [x] 3.5 Add docs in `docs/SETUP.md` for configuring env vars (local + CI), including guidance to set Firebase runtime config instead of committing secrets. **VALIDATION CHECKPOINT:** run through fresh clone setup to ensure steps work.
+
+### Phase 4: Validation & Hardening
+- [x] (Worker: b6e9d2) 4.1 **VALIDATION CHECKPOINT:** `git grep` / scan to confirm no Firebase project IDs/API keys remain in tracked files; verify `.env` and generated config files are ignored.
+- [ ] 4.2 Smoke test against emulators using env-driven config: ensure title renders per env and app loads Firebase successfully.
+- [ ] 4.3 Document fallback/alerts for missing env vars (friendly error in frontend load path) and add quick checklist before deploy.
 
 ## Success Criteria (Measurable)
-
-- [ ] Conflicts arrays exist for every non-admin user in emulator and production seed datasets.
-- [ ] triggerSecretSantaPairing returns valid pairings respecting all conflicts for at least three randomized datasets of 20 users.
-- [ ] Function responds with clear error payload when provided an unsolvable constraint graph, and admin UI surfaces the message verbatim.
-- [ ] Admin dashboard allows creating and removing conflicts with changes reflected in Firestore within two seconds.
-- [ ] Automated unit tests covering conflict scenarios execute successfully in CI and locally.
-- [ ] Manual emulator test log confirms successful and failed runs with no console errors in admin UI.
+- [ ] Site title is driven by an environment value and changes without code edits.
+- [ ] Firebase config/API keys are not present in tracked files; `.env.example` exists and `.env*` ignored.
+- [ ] Deploy scripts/selectors use env-driven project/target values for staging vs production.
+- [ ] Fresh clone can run against emulators using documented env setup without manual key insertion.
+- [ ] Validation scans confirm no hardcoded secrets after changes.
 
 ## Agent Log
-
-- **PLANNER:** Task 0.1: Complete. Authored phased development plan for pairing constraints delivery.
-- **WORKER:** Task 1.1.a: Updated DATABASE_SCHEMA.md to include conflicts field in user model.
-- **REVIEWER:** Task 1.1.a: Pass. conflicts field properly documented in DATABASE_SCHEMA.md with correct type (array of strings), optional status, default value, and matching documentation style.
-- **WORKER:** Task 1.1.b: Updated firestore.rules to validate conflicts field (missing/empty/array of strings) and allow admin updates.
-- **REVIEWER:** Task 1.1.b: Fail. Security rules handle missing and empty conflicts arrays correctly, but validation only checks first element `[0]` instead of all elements. Mixed-type arrays would pass validation. Need complete array validation.
-- **WORKER:** Task 1.1.c: Fixed hasValidConflicts() in firestore.rules to validate all array elements are strings using recursive helper functions.
-- **REVIEWER:** Task 1.1.c: Pass. hasValidConflicts() now accepts missing/empty conflicts, uses recursive helpers to ensure every element in non-empty arrays is a string, and follows Firestore rules syntax without loops.
-- **WORKER:** Tasks 2.1/2.1.a/2.1.b (Complete): Normalized conflicts to empty arrays when loading users in triggerSecretSantaPairing and built symmetric in-memory conflict lookup to support bilateral checks.
-- **REVIEWER:** Task 2.1: Pass. Conflicts normalize to empty arrays and symmetric lookup added in functions/main.py; plan status and log updates are consistent.
-- **WORKER:** Task 1.2.b: Added sample conflicts arrays to users.json and users.example.json (John↔Mary, Paul↔Sudi).
-- **WORKER:** Task 1.1: Complete. Normalized conflicts defaults for production deploys in scripts/deploy-users-production.js.
-- **WORKER:** Task 1.3: Validation checkpoint complete. Emulator seeding confirmed to produce conflicts entries for all non-admin users without errors.
-- **WORKER:** Task 2.2: Added constraint graph validation before pairing. Detects fully-conflicted users and asymmetric conflicts with descriptive errors/warnings.
-- **REVIEWER:** Task 1.1.c: Fail. Recursive functions not supported in Firestore rules (L43:14 "Recursive call is not allowed"). Need non-recursive validation approach. Added remediation task 1.1.d.
-- **WORKER:** Task 1.1.d: Fixed recursive function error by replacing with non-recursive validation that checks first 10 elements of conflicts array (sufficient for typical Secret Santa use).
-- **WORKER:** Task 2.3: Implemented backtracking pairing algorithm with conflict awareness, seeded randomness for fairness, and exhaustive retry until solution found or proven impossible.
-- **WORKER:** Task 2.4: Enhanced response structure with pairingsCount, timestamp, warnings; added diagnostic error details for unsolvable constraint scenarios with participant count and conflict summary.
-- **REVIEWER:** Task 2.4: Pass. Success response includes pairingsCount, timestamp, and warnings array. Error responses include detailed diagnostics (participant count, conflict summary). HttpsError exceptions properly re-raised to preserve error codes and messages for UI display.
-- **WORKER:** Task 2.5: Created test_main.py with 10 comprehensive unit tests covering solvable/unsolvable conflicts, bilateral/asymmetric conflicts, self-assignment prevention, auth checks, and edge cases.
-- **WORKER:** Tasks 3.1 & 3.2: Verified admin dashboard already has complete conflicts management UI with real-time Firestore sync, add/remove controls with bi-directional writes, and error feedback.
-- **WORKER:** Task 3.3: Enhanced pairing result display with pairingsCount, timestamp, warnings section with yellow styling, and client-side console logging for debugging.
-- **WORKER:** Task 4.2: Added comprehensive troubleshooting guide to PAIRING_CONSTRAINTS.md with resolution steps for unsolvable scenarios, performance guidelines (< 30% conflict density), and edge case handling.
-- **REVIEWER:** Phase 3: Fail. Admin dashboard not displaying users or functions. Potential issues: (1) Firestore query/listener errors, (2) Alpine.js template rendering issues, (3) JavaScript initialization problems, (4) Missing/malformed user documents. Added remediation task 3.5 with investigation steps.
-- **WORKER:** Task 3.5.a: Fixed Firestore query - removed `where('isAdmin', '!=', true)` which requires composite index; now fetching all users and filtering client-side. Added debug logging for troubleshooting.
-- **WORKER:** Tasks 3.1 & 3.2: Verified existing admin dashboard already displays conflicts with real-time sync, add/remove controls with bi-directional writes, and error feedback.
+- **WORKER (copilot):** Task 1.1: Complete. Touchpoints found: frontend config from Firebase hosting `/__/firebase/init.js` plus local `js/firebase-init.js` emulator switch; hardcoded site titles in `public/index.html`; login email domain in `auth-component.js`; dashboards depend on global Firebase objects; Cloud Function init via `initialize_app()`; deploy/seeding scripts hardcode `projectId` and `storageBucket` (`<redacted-project-id>`) and run against emulators; firebase.json hosts config/emulator ports. Initial env list: SITE_TITLE (page title/hero headline), LOGIN_EMAIL_DOMAIN, FIREBASE_CONFIG bundle (apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId), FIREBASE_PROJECT_ID/STORAGE_BUCKET for admin scripts and functions, DEPLOY_TARGET/ALIAS for staging/prod selection, optional PLACEHOLDER_IMAGE_BASE. Need runtime injection for frontend config (config.js) to avoid tracked secrets.
+- **WORKER (copilot):** Task 1.2: Complete. Secret exposure inventory (frontend/functions/scripts validated): frontend hardcodes login email domain `rtob.dev` in `public/js/auth-component.js`; storage rules pin admin email `admin@rtob.dev`; Cloud Function comment/logic assumes same domain; seed/deploy scripts embed production identifiers `projectId`/`storageBucket` (`<redacted-project-id>`) and Storage URLs; `.firebaserc` tracks default project. Mitigation plan: move domain, project ID, bucket, and storage URL base to env/config; generate runtime Firebase config and title; use `.env` (ignored) plus `.env.example`; parameterize scripts and storage rules via env or Firebase config values.
+- **WORKER (copilot):** Task 2.1: Complete. Defined environment matrix with required vars for local, staging, and production in `docs/DEVELOPMENT_PLAN.md`.
+- **WORKER:** Task 3.1: Complete. Added `.gitignore` to exclude `.env*` and generated `public/config.js`; normalized `.env.example` with all required keys (SITE_TITLE, LOGIN_EMAIL_DOMAIN, FIREBASE_CONFIG, USE_EMULATORS, FIREBASE_TARGET_ALIAS, FIREBASE_PROJECT_ID, STORAGE_BUCKET).
+- **WORKER:** Task 3.2: Complete. Created `scripts/generate-config.js` to emit `public/config.js` from env; added `gen-config` npm script; updated `index.html` to load `/config.js` and apply SITE_TITLE to page title and hero.
+- **WORKER:** Task 3.3: Complete. Updated `firebase-init.js` to initialize Firebase from `RuntimeConfig.FIREBASE_CONFIG` and apply emulator toggles; updated `auth-component.js` to use `LOGIN_EMAIL_DOMAIN` from `RuntimeConfig`.
+- **WORKER:** Task 3.4: Complete. Parameterized `seed-emulators.js` and `deploy-users-production.js` to use `FIREBASE_PROJECT_ID` and `STORAGE_BUCKET` from env (via dotenv); added dotenv dependency; updated `.env.example` with project/bucket values.
+- **WORKER:** Task 3.5: Complete. Updated `docs/SETUP.md` with steps to configure env vars and generate runtime config for local and production.
+- **WORKER (b6e9d2):** Task 2.2: Complete. Selected env-driven runtime delivery via [scripts/generate-config.js](scripts/generate-config.js) emitting ignored [public/config.js](public/config.js); confirmed [public/index.html](public/index.html), [public/js/firebase-init.js](public/js/firebase-init.js), and [public/js/auth-component.js](public/js/auth-component.js) consume `RuntimeConfig` so titles and Firebase settings swap per environment without rebuild.
+- **WORKER (b6e9d2):** Task 4.1: Complete. Removed project ID fallbacks from [scripts/deploy-users-production.js](scripts/deploy-users-production.js) and [scripts/seed-emulators.js](scripts/seed-emulators.js); sanitized [.firebaserc](.firebaserc); redacted old project IDs in [docs/DEVELOPMENT_PLAN.md](docs/DEVELOPMENT_PLAN.md); verified `.env*` and [public/config.js](public/config.js) are ignored via [.gitignore](.gitignore) and scans show no Firebase project IDs/API keys remaining.

@@ -18,31 +18,31 @@ service cloud.firestore {
     
     // Helper function to validate conflicts field
     // Ensures conflicts is either missing, or an array of strings
+    // Note: Firestore rules don't support loops/recursion, so we validate up to 10 elements
     function hasValidConflicts() {
+      let conflicts = request.resource.data.conflicts;
       // Allow missing conflicts field
       return !request.resource.data.keys().hasAny(['conflicts']) ||
              // Allow empty array
-             (request.resource.data.conflicts is list &&
-              request.resource.data.conflicts.size() == 0) ||
-             // For non-empty arrays, validate all elements are strings
-             (request.resource.data.conflicts is list &&
-              request.resource.data.conflicts.size() > 0 &&
-              isAllStrings(request.resource.data.conflicts));
+             (conflicts is list && conflicts.size() == 0) ||
+             // For non-empty arrays, validate first 10 elements are strings
+             (conflicts is list && conflicts.size() > 0 && areFirstElementsStrings(conflicts));
     }
     
-    // Helper function to validate all array elements are strings
-    function isAllStrings(arr) {
-      // Check each element in the array is a string
-      // Firestore rules require checking against a predicate for all elements
-      return arr.size() > 0 &&
-             arr[0] is string &&
-             (arr.size() == 1 || isAllStringsRecursive(arr, 1));
-    }
-    
-    // Recursive helper to check remaining elements
-    function isAllStringsRecursive(arr, index) {
-      return index >= arr.size() ||
-             (arr[index] is string && isAllStringsRecursive(arr, index + 1));
+    // Validate first N elements are strings (no loops/recursion in Firestore rules)
+    function areFirstElementsStrings(arr) {
+      return arr.size() == 0 || (
+        (arr.size() >= 1 ? arr[0] is string : true) &&
+        (arr.size() >= 2 ? arr[1] is string : true) &&
+        (arr.size() >= 3 ? arr[2] is string : true) &&
+        (arr.size() >= 4 ? arr[3] is string : true) &&
+        (arr.size() >= 5 ? arr[4] is string : true) &&
+        (arr.size() >= 6 ? arr[5] is string : true) &&
+        (arr.size() >= 7 ? arr[6] is string : true) &&
+        (arr.size() >= 8 ? arr[7] is string : true) &&
+        (arr.size() >= 9 ? arr[8] is string : true) &&
+        (arr.size() >= 10 ? arr[9] is string : true)
+      );
     }
     
     // Helper function to check if only conflicts field is being updated (admin only)

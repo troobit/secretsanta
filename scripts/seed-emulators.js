@@ -190,15 +190,9 @@ async function main() {
         const conflictSets = buildMutualConflicts(USERS);
         await createFirestoreDocuments(pictureUrls, conflictSets);
 
-        console.log('\n✨ Seed process completed successfully!\n');
-        console.log('You can now:');
-        console.log('1. View emulator data at: http://localhost:4000');
-        console.log('2. Access the app at: http://localhost:5000');
-        console.log('3. Login with:');
-        console.log('   - User: john / password123');
-        console.log('   - User: mary / password123');
-        console.log('   - User: paul / password123');
-        console.log('   - Admin: admin / admin123\n');
+        console.log('\n✨ Seed complete\n');
+        console.log('Emulator: http://localhost:4000');
+        console.log('App: http://localhost:5000');
     } catch (error) {
         console.error('\n❌ Seed process failed:', error);
         exitCode = 1;

@@ -55,30 +55,8 @@ function buildMutualConflicts(users) {
     return conflictSets;
 }
 
-async function downloadPlaceholderImage(name, filename) {
-    return new Promise((resolve, reject) => {
-        const url = `${PLACEHOLDER_IMAGE_URL}${encodeURIComponent(name)}`;
-        const filepath = path.join(__dirname, 'temp', filename);
-
-        // Ensure temp directory exists
-        const tempDir = path.join(__dirname, 'temp');
-        if (!fs.existsSync(tempDir)) {
-            fs.mkdirSync(tempDir, { recursive: true });
-        }
-
-        const file = fs.createWriteStream(filepath);
-        https.get(url, (response) => {
-            response.pipe(file);
-            file.on('finish', () => {
-                file.close();
-                resolve(filepath);
-            });
-        }).on('error', (err) => {
-            fs.unlink(filepath, () => { });
-            reject(err);
-        });
-    });
-}
+// No image downloads/uploads for MVP; use placeholder URLs only
+// Placeholder image source: https://static.photos/people/320x240/162
 
 async function createAuthUsers() {
     console.log('\n📝 Creating Auth users...');
@@ -103,39 +81,15 @@ async function createAuthUsers() {
 }
 
 async function uploadProfilePictures() {
-    console.log('\n📸 Uploading profile pictures...');
+    console.log('\n📸 Setting placeholder profile pictures (no uploads)...');
 
     const pictureUrls = {};
 
     for (const user of USERS) {
         if (!user.userData.isAdmin) {
-            try {
-                // Download placeholder image
-                const filename = `${user.uid}.png`;
-                const tempPath = await downloadPlaceholderImage(user.displayName, filename);
-
-                // Upload to Storage
-                const destination = `profile-pictures/${filename}`;
-                await storage.upload(tempPath, {
-                    destination: destination,
-                    metadata: {
-                        contentType: 'image/png'
-                    }
-                });
-
-                // Generate production Storage URL
-                const storageUrl = `https://firebasestorage.googleapis.com/v0/b/secretsanta-melb.appspot.com/o/${encodeURIComponent(destination)}?alt=media`;
-                pictureUrls[user.uid] = storageUrl;
-
-                console.log(`✅ Uploaded picture for: ${user.displayName}`);
-
-                // Clean up temp file
-                fs.unlinkSync(tempPath);
-            } catch (error) {
-                console.error(`❌ Error uploading picture for ${user.displayName}:`, error.message);
-                // Use placeholder URL as fallback
-                pictureUrls[user.uid] = `https://via.placeholder.com/150/4F46E5/FFFFFF?text=${encodeURIComponent(user.displayName)}`;
-            }
+            // Use one common placeholder URL for all non-admin users
+            pictureUrls[user.uid] = 'https://static.photos/people/320x240/162';
+            console.log(`✅ Placeholder picture set for: ${user.displayName}`);
         }
     }
 

@@ -73,98 +73,76 @@ window.adminDashboard = function adminDashboard() {
             this.showConfirmation = false;
 
             try {
-                // Call Cloud Function to perform pairing
                 const pairFunction = window.firebaseFunctions.httpsCallable('triggerSecretSantaPairing');
                 const result = await pairFunction();
 
                 const data = result?.data || {};
-                const count = typeof data.pairingsCount === 'number' ? data.pairingsCount : 0;
-                const timestamp = data.timestamp || new Date().toISOString();
-                const warnings = Array.isArray(data.warnings) ? data.warnings : [];
-
-                // Log warnings for debugging (without sensitive data)
-                if (warnings.length > 0) {
-                    console.info('Pairing warnings:', warnings);
-                }
+                const count = data.pairingsCount || 0;
 
                 this.pairingResult = {
                     success: true,
                     pairingsCount: count,
-                    timestamp: timestamp,
-                    warnings: warnings,
                     message: `Pairing successful! ${count} users paired.`
                 };
             } catch (error) {
-                console.error('Pairing error:', error.code, error.message);
-
-                let errorMessage = 'Failed to trigger pairing';
-                if (error.code === 'permission-denied') {
-                    errorMessage = 'Permission denied. Admin access required.';
-                } else if (error.message) {
-                    errorMessage = error.message;
-                }
-
                 this.pairingResult = {
                     success: false,
-                    message: errorMessage,
-                    error: error.message
+                    message: 'Failed to trigger pairing'
                 };
-                message: errorMessage
-            };
-        } finally {
-            this.isProcessing = false;
-        }
-    },
+            } finally {
+                this.isProcessing = false;
+            }
+        },
 
         getUserNameById(id) {
-        return this.usersById[id]?.name || id;
-    },
+            return this.usersById[id]?.name || id;
+        },
 
         async addConflict(userId, otherUserId) {
-        this.conflictActionFeedback = '';
-        if (!userId || !otherUserId || userId === otherUserId) {
-            this.conflictActionFeedback = 'Invalid selection.';
-            return;
-        }
-        try {
-            const batch = window.firebaseFirestore.batch();
-            const userRef = window.firebaseFirestore.collection('users').doc(userId);
-            const otherRef = window.firebaseFirestore.collection('users').doc(otherUserId);
+            this.conflictActionFeedback = '';
+            if (!userId || !otherUserId || userId === otherUserId) {
+                this.conflictActionFeedback = 'Invalid selection.';
+                return;
+            }
+            try {
+                const batch = window.firebaseFirestore.batch();
+                const userRef = window.firebaseFirestore.collection('users').doc(userId);
+                const otherRef = window.firebaseFirestore.collection('users').doc(otherUserId);
 
-            batch.update(userRef, { conflicts: firebase.firestore.FieldValue.arrayUnion(otherUserId) });
-            batch.update(otherRef, { conflicts: firebase.firestore.FieldValue.arrayUnion(userId) });
+                batch.update(userRef, { conflicts: window.firebaseFirestore.FieldValue.arrayUnion(otherUserId) });
+                batch.update(otherRef, { conflicts: window.firebaseFirestore.FieldValue.arrayUnion(userId) });
 
-            await batch.commit();
-            this.conflictActionFeedback = 'Conflict added.';
-        } catch (error) {
-            console.error('Add conflict error:', error);
-            this.conflictActionFeedback = error?.message || 'Failed to add conflict';
-        }
-    },
+                await batch.commit();
+                this.conflictActionFeedback = 'Conflict added.';
+            } catch (error) {
+                console.error('Add conflict error:', error);
+                this.conflictActionFeedback = error?.message || 'Failed to add conflict';
+            }
+        },
 
         async removeConflict(userId, otherUserId) {
-        this.conflictActionFeedback = '';
-        try {
-            const batch = window.firebaseFirestore.batch();
-            const userRef = window.firebaseFirestore.collection('users').doc(userId);
-            const otherRef = window.firebaseFirestore.collection('users').doc(otherUserId);
+            this.conflictActionFeedback = '';
+            try {
+                const batch = window.firebaseFirestore.batch();
+                const userRef = window.firebaseFirestore.collection('users').doc(userId);
+                const otherRef = window.firebaseFirestore.collection('users').doc(otherUserId);
 
-            batch.update(userRef, { conflicts: firebase.firestore.FieldValue.arrayRemove(otherUserId) });
-            batch.update(otherRef, { conflicts: firebase.firestore.FieldValue.arrayRemove(userId) });
+                batch.update(userRef, { conflicts: window.firebaseFirestore.FieldValue.arrayRemove(otherUserId) });
+                batch.update(otherRef, { conflicts: window.firebaseFirestore.FieldValue.arrayRemove(userId) });
 
-            await batch.commit();
-            this.conflictActionFeedback = 'Conflict removed.';
-        } catch (error) {
-            console.error('Remove conflict error:', error);
-            this.conflictActionFeedback = error?.message || 'Failed to remove conflict';
+                await batch.commit();
+                this.conflictActionFeedback = 'Conflict removed.';
+            } catch (error) {
+                console.error('Remove conflict error:', error);
+                this.conflictActionFeedback = error?.message || 'Failed to remove conflict';
+            }
+        },
+
+        destroy() {
+            // Clean up listeners
+            if (this.unsubscribeUsers) {
+                this.unsubscribeUsers();
+            }
         }
-    },
-
-    destroy() {
-        // Clean up listeners
-        if (this.unsubscribeUsers) {
-            this.unsubscribeUsers();
-        }
-    }
-};
+    };
 };
